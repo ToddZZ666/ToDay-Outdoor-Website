@@ -1,0 +1,54 @@
+---
+// Specifications Table + Technical Diagram
+import '../sections/productDetail.css';
+
+export interface Props {
+  specifications: { label: string; value: string }[];
+  dimensions: {
+    width: number;
+    depth: number;
+    height: number;
+    seatHeight: number;
+    weight: number;
+  };
+  diagramImage?: string;
+  heading?: string;
+}
+
+const { specifications, diagramImage = '/images/coastal-library/16-dimension-drawing.jpg', heading = 'Specifications' } = Astro.props;
+---
+
+<section class="detail-specs" aria-label="Product specifications">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <h2 class="detail-section-heading">{heading}</h2>
+
+    <div class="detail-specs-grid">
+      <!-- Specs Table -->
+      <div class="detail-specs-table-wrap">
+        <table class="detail-specs-table">
+          <tbody>
+            {specifications.map((spec) => (
+              <tr>
+                <td>{spec.label}</td>
+                <td>{spec.value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Technical Diagram -->
+      <div class="detail-diagram">
+        <img
+          src={diagramImage}
+          alt="Product dimension drawing"
+          width="800"
+          height="600"
+          class="detail-diagram-img"
+          loading="lazy"
+        />
+        <p class="detail-diagram-caption">Manual measurement. There may be 1-3cm error.</p>
+      </div>
+    </div>
+  </div>
+</section>

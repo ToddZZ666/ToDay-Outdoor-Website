@@ -1,0 +1,41 @@
+---
+export interface Props {
+  class?: string;
+  currentPath?: string;
+}
+
+const { class: className = '', currentPath = '/' } = Astro.props;
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/collection', label: 'Collection' },
+  { href: '/about', label: 'About Us' },
+  { href: '/contact', label: 'Contact' },
+];
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  if (href === '/collection' && currentPath.startsWith('/products')) return true;
+  return currentPath.startsWith(href);
+}
+---
+
+<nav class={className} aria-label="Main navigation">
+  <ul class="flex items-center gap-11">
+    {links.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          class={`font-regular text-sm tracking-[0.06em] transition-opacity duration-250 ${
+            isActive(link.href)
+              ? 'text-brand'
+              : 'text-text-body hover:text-text-heading'
+          }`}
+          aria-current={isActive(link.href) ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

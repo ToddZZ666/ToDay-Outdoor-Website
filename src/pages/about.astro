@@ -1,0 +1,232 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import '../sections/about.css';
+---
+
+<MainLayout
+  title="About Us — ToDay Outdoor Living"
+  description="ToDay was born from our belief that the best moments happen outdoors. Discover our story, our vision, and get in touch."
+>
+  <div class="about-page">
+    <!-- ============ SECTION 1 — HERO ============ -->
+    <section class="hero" aria-label="Brand opening">
+      <div class="hero-parallax">
+        <img
+          src="/images/about/about-hero.png"
+          alt=""
+          width="2752"
+          height="1536"
+        />
+      </div>
+      <div class="hero-overlay"></div>
+
+      <div class="hero-brand">TODAY</div>
+
+      <div class="hero-content">
+        <h1 class="hero-title">
+          <em>Designed for<br />Living in the Present</em>
+        </h1>
+        <p class="hero-sub">Every piece is crafted for moments that matter.</p>
+      </div>
+
+      <div class="hero-scroll">
+        <span class="hero-scroll-text">Scroll</span>
+        <div class="hero-scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 2 — OUR STORY ============ -->
+    <section class="story" aria-label="Brand introduction">
+      <div class="story-container">
+        <div class="story-row">
+          <div class="story-text-col">
+            <p class="eyebrow reveal-element">OUR STORY</p>
+            <h2 class="heading reveal-element">
+              Outdoor living<br />
+              is more than furniture.
+            </h2>
+            <p class="lede reveal-element">
+              ToDay was born from our belief that the best moments happen outdoors.
+              We create timeless outdoor furniture that blends thoughtful craftsmanship,
+              durable materials, and modern design — so you can slow down, connect,
+              and truly enjoy the present.
+            </p>
+
+            <div class="story-stats reveal-element">
+              <div class="story-stat">
+                <span class="story-stat-number">2018</span>
+                <span class="story-stat-label">ESTABLISHED</span>
+              </div>
+              <div class="story-stat-divider"></div>
+              <div class="story-stat">
+                <span class="story-stat-number">15+</span>
+                <span class="story-stat-label">CRAFTSMEN</span>
+              </div>
+              <div class="story-stat-divider"></div>
+              <div class="story-stat">
+                <span class="story-stat-number">100%</span>
+                <span class="story-stat-label">SUSTAINABLE MATERIALS</span>
+              </div>
+            </div>
+
+            <a href="#contact" class="story-link reveal-element">Our Journey &rarr;</a>
+          </div>
+
+          <div class="story-image-col reveal-image">
+            <img
+              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=85&auto=format&fit=crop"
+              alt="Warm outdoor living space with teak and rope furniture"
+              width="700"
+              height="933"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 3 — OUR VISION (Chapter Break) ============ -->
+    <section class="vision" aria-label="Brand vision">
+      <div class="vision-bg">
+        <img
+          src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=2000&q=85&auto=format&fit=crop"
+          alt="Serene natural landscape at sunrise overlooking the ocean"
+          width="2000"
+          height="1200"
+          loading="lazy"
+        />
+      </div>
+      <div class="vision-overlay"></div>
+
+      <div class="vision-content">
+        <p class="vision-eyebrow reveal-element">OUR VISION</p>
+        <h2 class="vision-heading reveal-element">
+          <em>Inspiring better outdoor living,<br />for a better tomorrow.</em>
+        </h2>
+        <p class="vision-pullquote reveal-element">
+          <em>&ldquo;We build more than furniture —<br />we build a lifestyle.&rdquo;</em>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 4 — CONTACT US ============ -->
+    <section class="contact" id="contact" aria-label="Contact us">
+      <div class="contact-container">
+        <div class="contact-row">
+          <div class="contact-text-col">
+            <p class="eyebrow reveal-element">GET IN TOUCH</p>
+            <h2 class="heading reveal-element">
+              Let&rsquo;s create something<br />
+              beautiful together.
+            </h2>
+            <p class="lede reveal-element">
+              Whether you have a question, need a quote, or want to collaborate,
+              we&rsquo;re here to help.
+            </p>
+
+            <div class="contact-info reveal-element">
+              <div class="contact-item">
+                <span class="contact-label">Email</span>
+                <a class="contact-value" href="mailto:hello@today-outdoor.com">hello@today-outdoor.com</a>
+              </div>
+              <div class="contact-hairline"></div>
+              <div class="contact-item">
+                <span class="contact-label">Phone</span>
+                <span class="contact-value">+1 (555) 123-4567</span>
+              </div>
+              <div class="contact-hairline"></div>
+              <div class="contact-item">
+                <span class="contact-label">Address</span>
+                <span class="contact-value">Los Angeles, CA, USA</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-col reveal-element">
+            <form class="contact-form" action="#" method="post">
+              <div class="contact-form-group">
+                <label for="name" class="contact-form-label">Your Name</label>
+                <input id="name" name="name" type="text" class="contact-form-input" placeholder="e.g. John Smith" required />
+              </div>
+              <div class="contact-form-group">
+                <label for="email" class="contact-form-label">Email Address</label>
+                <input id="email" name="email" type="email" class="contact-form-input" placeholder="e.g. john@example.com" required />
+              </div>
+              <div class="contact-form-group">
+                <label for="message" class="contact-form-label">Message</label>
+                <textarea id="message" name="message" class="contact-form-textarea" rows="4" placeholder="Tell us about your project..." required></textarea>
+              </div>
+              <button type="submit" class="contact-form-btn">Send Message</button>
+            </form>
+            <div class="contact-form-hairline"></div>
+            <p class="contact-closing">
+              <em>We respond within one business day.</em>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" aria-hidden="true"></div>
+</MainLayout>
+
+<script>
+  (function () {
+    // Parallax hero
+    var parallax = document.querySelector('.hero-parallax img') as HTMLImageElement | null;
+    if (parallax) {
+      var ticking = false;
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          requestAnimationFrame(function () {
+            var y = window.scrollY;
+            if (parallax) parallax.style.transform = 'translateY(' + (y * 0.3) + 'px)';
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    }
+
+    // Scroll progress bar
+    var progress = document.querySelector('.scroll-progress') as HTMLElement | null;
+    if (progress) {
+      window.addEventListener('scroll', function () {
+        var scrollTop = window.scrollY;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        if (progress) progress.style.transform = 'scaleY(' + (pct / 100) + ')';
+      });
+    }
+
+    // High performance IntersectionObserver reveal for below-hero sections
+    var observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -80px 0px',
+      threshold: 0.15
+    };
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var target = entry.target as HTMLElement;
+          // Apply gentle stagger based on sibling index if inside a container
+          var parent = target.parentElement;
+          if (parent) {
+            var children = Array.from(parent.children);
+            var index = children.indexOf(target);
+            target.style.transitionDelay = (index * 70) + 'ms';
+          }
+          target.classList.add('is-visible');
+          observer.unobserve(target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-element, .reveal-image').forEach(function(el) {
+      observer.observe(el);
+    });
+  })();
+</script>

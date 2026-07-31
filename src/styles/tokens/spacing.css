@@ -1,0 +1,26 @@
+/**
+ * Spacing & Layout Design Tokens — ToDay Design System
+ * 
+ * Defines standard container widths, horizontal page padding, and vertical
+ * section spacing scale across breakpoints.
+ */
+
+@theme {
+  /* Layout Containers */
+  --spacing-container-max: 80rem;       /* 1280px standard container max-width */
+  --spacing-container-px-mobile: 1rem;  /* 16px padding on mobile */
+  --spacing-container-px-tablet: 1.5rem;/* 24px padding on tablet */
+  --spacing-container-px-desktop: 2rem; /* 32px padding on desktop */
+
+  /* Section Vertical Rhythm Scale */
+  --spacing-section-compact: 3rem;      /* 48px compact padding for minor callouts & toolbars */
+  --spacing-section-standard: 6rem;     /* 96px standard padding for normal page sections */
+  --spacing-section-major: 7.5rem;      /* 120px generous padding for editorial & story sections */
+  --spacing-section-hero: 10rem;        /* 160px deep vertical space for landing & contact hero */
+
+  /* Grid & Element Gaps */
+  --spacing-gap-sm: 0.75rem;            /* 12px small element gap */
+  --spacing-gap-md: 1.5rem;             /* 24px grid gap */
+  --spacing-gap-lg: 2rem;               /* 32px standard grid gap */
+  --spacing-gap-xl: 3rem;               /* 48px generous column gap */
+}

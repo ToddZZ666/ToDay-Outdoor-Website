@@ -1,0 +1,29 @@
+---
+// Premium Materials section — 4-column grid with images, 4:3 ratio, 12px radius
+import '../sections/productDetail.css';
+
+export interface Props {
+  materials: { name: string; description: string; image: string }[];
+  heading?: string;
+}
+
+const { materials, heading = 'Premium Materials' } = Astro.props;
+---
+
+<section class="detail-materials" aria-label="Premium materials">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <h2 class="detail-section-heading">{heading}</h2>
+
+    <div class="detail-materials-grid">
+      {materials.map((m) => (
+        <article class="detail-material-card">
+          <div class="detail-material-image">
+            {m.image && <img src={m.image} alt={m.name} width="600" height="450" loading="lazy" />}
+          </div>
+          <h3 class="detail-material-name">{m.name}</h3>
+          <p class="detail-material-desc">{m.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

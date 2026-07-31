@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx astro *)",
+      "Bash(timeout 10 npx astro dev)",
+      "WebFetch(domain:localhost)",
+      "Bash(curl -s http://localhost:4321/)",
+      "Bash(npm ls *)"
+    ]
+  }
+}

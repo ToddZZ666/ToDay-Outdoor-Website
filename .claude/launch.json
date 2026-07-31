@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "todays-website",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 4321,
+      "autoPort": true
+    },
+    {
+      "name": "static-preview",
+      "runtimeExecutable": "D:/Projects/Today-Website/.serve-static.cmd",
+      "port": 4344
+    }
+  ]
+}

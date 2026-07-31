@@ -1,0 +1,67 @@
+---
+// AboutHeroParallax — full-screen brand opening with parallax layers
+import './about.css';
+
+export interface Props {
+  backgroundImage?: string;
+  foregroundImage?: string;
+}
+
+const {
+  backgroundImage = '/images/about/about-hero.png',
+  foregroundImage = 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1920&q=85&auto=format&fit=crop',
+} = Astro.props;
+---
+
+<section class="about-hero" aria-label="Brand opening">
+  <!-- Background layer (slowest parallax) -->
+  <div class="about-hero-layer" id="about-parallax-bg" style="transform: translateY(0px)">
+    <img src={backgroundImage} alt="" width="1920" height="1080" />
+  </div>
+
+  <!-- Overlay gradient -->
+  <div class="about-hero-overlay"></div>
+
+  <!-- Central content -->
+  <div class="about-hero-content" id="about-parallax-content">
+    <span class="about-hero-eyebrow">ABOUT TODAY</span>
+    <h1 class="about-hero-title">
+      Designed for<br />
+      Living in the Present
+    </h1>
+    <p class="about-hero-sub">
+      Every piece crafted for moments that matter.
+    </p>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="about-hero-scroll">
+    <span class="about-hero-scroll-text">Scroll</span>
+    <div class="about-hero-scroll-line"></div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var bg = document.getElementById('about-parallax-bg') as HTMLElement | null;
+    var content = document.getElementById('about-parallax-content') as HTMLElement | null;
+    if (!bg || !content) return;
+
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(function () {
+          var y = window.scrollY;
+          var vh = window.innerHeight;
+          if (y <= vh && bg && content) {
+            bg.style.transform = 'translateY(' + (y * 0.35) + 'px)';
+            content.style.transform = 'translateY(' + (y * 0.15) + 'px)';
+            content.style.opacity = String(1 - (y / vh) * 0.5);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  })();
+</script>

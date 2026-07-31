@@ -1,0 +1,1 @@
+globalThis.process??={},globalThis.process.env??={};import{n as e}from"./collection.BdN68At0.js";e(`.collection-editorial`);

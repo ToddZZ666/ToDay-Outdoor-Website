@@ -1,0 +1,688 @@
+/**
+ * Shared stylesheet for Collection page components.
+ * All Collection sections import this single stylesheet
+ * to keep styles consolidated and maintain the ToDay design system.
+ */
+
+/* ==========================================================================
+   Page-level spacing & background
+   ========================================================================== */
+.collection-page {
+  background: var(--color-background);
+}
+
+.collection-page .bg-warm {
+  background: #FAF8F5;
+}
+
+/* ==========================================================================
+   Editorial Page Header — ~340px, no hero image overlay
+   ========================================================================== */
+.collection-editorial {
+  background: #FAF8F5;
+}
+
+.collection-editorial-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .collection-editorial-grid {
+    grid-template-columns: 1fr 0.85fr;
+    gap: 64px;
+  }
+}
+
+.collection-breadcrumb {
+  font-size: 12.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #8A8A8A;
+  margin: 0;
+}
+
+.collection-breadcrumb a {
+  color: #8A8A8A;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.collection-breadcrumb a:hover {
+  color: #5E5E5E;
+}
+
+.collection-breadcrumb-sep {
+  display: inline-block;
+  margin: 0 10px;
+  color: #D9D2C9;
+}
+
+.collection-editorial-title {
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  font-size: clamp(3.5rem, 5.5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: #222222;
+  margin: 16px 0 20px;
+}
+
+.collection-editorial-desc {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #5E5E5E;
+  max-width: 420px;
+  margin: 0;
+}
+
+.collection-editorial-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.collection-editorial-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 300ms ease;
+}
+
+.collection-editorial-image-wrap:hover img {
+  transform: scale(1.02);
+}
+
+/* ==========================================================================
+   Category Navigation — horizontal, icon + text, ~80px
+   ========================================================================== */
+.collection-cat-nav {
+  border-top: none;
+  border-bottom: 1px solid var(--color-border);
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collection-cat-nav-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.collection-cat-nav-list::-webkit-scrollbar {
+  display: none;
+}
+
+.collection-cat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 28px;
+  height: 56px;
+  text-decoration: none;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.collection-cat-item:first-child {
+  padding-left: 0;
+}
+
+.collection-cat-item-icon {
+  display: block;
+  height: 18px;
+  margin-bottom: 4px;
+  color: #8A847E;
+  transition: color 200ms ease;
+}
+
+.collection-cat-item-text {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8A847E;
+  transition: color 200ms ease;
+  white-space: nowrap;
+}
+
+.collection-cat-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 28px;
+  right: 28px;
+  height: 1.5px;
+  background: #C67A52;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 200ms ease;
+}
+
+.collection-cat-item:hover .collection-cat-item-text {
+  color: #222222;
+}
+
+.collection-cat-item:hover .collection-cat-item-icon {
+  color: #C67A52;
+}
+
+.collection-cat-item.active .collection-cat-item-text {
+  color: #C67A52;
+  font-weight: 600;
+}
+
+.collection-cat-item.active .collection-cat-item-icon {
+  color: #C67A52;
+}
+
+.collection-cat-item.active::after {
+  transform: scaleX(1);
+}
+
+/* Mobile: horizontal scroll, hide icons, smaller padding */
+@media (max-width: 767px) {
+  .collection-cat-nav {
+    height: 64px;
+    justify-content: flex-start;
+  }
+  .collection-cat-nav-list {
+    justify-content: flex-start;
+    gap: 0;
+  }
+  .collection-cat-item {
+    padding: 0 18px;
+    flex-direction: row;
+    gap: 6px;
+  }
+  .collection-cat-item-icon {
+    display: none;
+  }
+  .collection-cat-item-text {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .collection-cat-item::after {
+    left: 18px;
+    right: 18px;
+    bottom: 0;
+  }
+}
+
+/* ==========================================================================
+   Product Section layout
+   ========================================================================== */
+.collection-product-section {
+  padding: 48px 0 80px;
+}
+
+@media (min-width: 1024px) {
+  .collection-product-section {
+    padding: 64px 0 96px;
+  }
+}
+
+.collection-product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+@media (min-width: 1024px) {
+  .collection-product-grid {
+    grid-template-columns: 220px 1fr;
+    gap: 48px;
+  }
+}
+
+/* ==========================================================================
+   Filter Sidebar
+   ========================================================================== */
+.collection-filter-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.collection-filter-group {
+  border-bottom: 1px solid #EAE5DF;
+}
+
+.collection-filter-group:first-child {
+  border-top: 1px solid #EAE5DF;
+}
+
+.collection-filter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #222222;
+  transition: color 200ms ease;
+}
+
+.collection-filter-header:hover {
+  color: #C67A52;
+}
+
+.collection-filter-chevron {
+  display: block;
+  width: 14px;
+  height: 14px;
+  color: #8A847E;
+  transition: transform 200ms ease;
+}
+
+.collection-filter-group.open .collection-filter-chevron {
+  transform: rotate(180deg);
+}
+
+.collection-filter-body {
+  display: none;
+  padding: 0 0 20px;
+}
+
+.collection-filter-group.open .collection-filter-body {
+  display: block;
+}
+
+.collection-filter-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 14px;
+  color: #5E5E5E;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.collection-filter-option:hover {
+  color: #222222;
+}
+
+.collection-filter-option.active {
+  color: #C67A52;
+  font-weight: 600;
+}
+
+.collection-filter-option input[type="checkbox"],
+.collection-filter-option input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #D9D2C9;
+  border-radius: 3px;
+  background: #FFFFFF;
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+
+.collection-filter-option input[type="checkbox"]:checked,
+.collection-filter-option input[type="radio"]:checked {
+  background: #C67A52;
+  border-color: #C67A52;
+}
+
+.collection-filter-option input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 4px;
+  height: 7px;
+  border: solid #FFFFFF;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.collection-filter-option input[type="radio"] {
+  border-radius: 50%;
+}
+
+.collection-filter-option input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FFFFFF;
+}
+
+.collection-filter-option-text {
+  flex: 1;
+}
+
+.collection-filter-option-count {
+  font-size: 12px;
+  color: #8A847E;
+  min-width: 16px;
+  text-align: right;
+}
+
+.collection-filter-clear {
+  margin-top: 20px;
+  padding: 10px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8A847E;
+  transition: color 200ms ease;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  width: 100%;
+}
+
+.collection-filter-clear:hover {
+  color: #C67A52;
+}
+
+/* ==========================================================================
+   Product Toolbar — count + sort
+   ========================================================================== */
+.collection-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: none;
+}
+
+.collection-toolbar-count {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.collection-toolbar-count strong {
+  color: var(--color-text-heading);
+  font-weight: 600;
+}
+
+.collection-sort-select {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-text-body);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 6px 28px 6px 10px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238A847E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.collection-sort-select:hover {
+  color: var(--color-text-heading);
+}
+
+.collection-sort-select:focus {
+  outline: none;
+  border-color: var(--color-brand);
+}
+
+@media (max-width: 767px) {
+  .collection-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* ==========================================================================
+   Focus-visible — keyboard navigation outline (does not affect pointer input)
+   ========================================================================== */
+.collection-product-card:focus-visible,
+.collection-cat-item:focus-visible,
+.collection-filter-header:focus-visible,
+.collection-filter-option:focus-visible,
+.collection-filter-clear:focus-visible,
+.collection-sort-select:focus-visible {
+  outline: 2px solid #C67A52;
+  outline-offset: 2px;
+}
+
+.collection-product-card:focus-visible {
+  border-radius: 12px;
+}
+
+.collection-sort-select:focus-visible {
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Product Grid — 3 columns, gap 32px
+   ========================================================================== */
+.collection-product-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 640px) {
+  .collection-product-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .collection-product-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}
+
+/* ==========================================================================
+   Product Card — no border, no shadow, minimal
+   ========================================================================== */
+.collection-product-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 250ms ease;
+}
+
+.collection-product-card:hover {
+  transform: translateY(-4px);
+}
+
+.collection-product-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #F5F2ED;
+  margin-bottom: 16px;
+}
+
+.collection-product-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 300ms cubic-bezier(0.25, 1, 0.3, 1), filter 300ms cubic-bezier(0.25, 1, 0.3, 1);
+}
+
+.collection-product-card:hover .collection-product-image-wrap img {
+  transform: scale(1.03);
+  filter: contrast(1.03);
+}
+
+.collection-product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.collection-product-name {
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #222222;
+  letter-spacing: -0.005em;
+}
+
+.collection-product-category {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  margin: 0 0 4px;
+}
+
+.collection-product-price {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #5E5E5E;
+  letter-spacing: 0.02em;
+}
+
+.collection-product-colors {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.collection-product-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid #EAE5DF;
+  cursor: pointer;
+  transition: transform 150ms ease;
+}
+
+.collection-product-swatch:hover {
+  transform: scale(1.15);
+}
+
+/* ── 3D Tilt Card (first product only, [data-tilt]) ─────────────────
+   Restrained Aceternity-style 3D parallax on the Coastal card. The card
+   container stays flat (entrance tween + layout untouched); only the inner
+   layer tilts with depth-separated children.
+   ─────────────────────────────────────────────────────────────────── */
+.collection-product-card[data-tilt] {
+  transition: none;
+  position: relative;
+  z-index: 0;
+}
+.collection-product-card[data-tilt]:hover {
+  transform: none;
+}
+.collection-product-card[data-tilt]:hover .collection-product-image-wrap img {
+  transform: none;
+}
+
+.collection-product-card[data-tilt] > .tilt-card-inner {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  transform-style: preserve-3d;
+  /* Create a stacking context so the floating image can paint above
+     neighbouring cards when it extends beyond the card's bounds. */
+  isolation: isolate;
+  z-index: 9999;
+}
+.collection-product-card[data-tilt] > .tilt-card-inner > * {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+.collection-product-card[data-tilt] .tilt-layer-image {
+  transform: translateZ(120px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* ── Layered 3D tilt (Riviera card: [data-tilt-layered]) ───────────────
+   The entire inner layer tilts as one, with restrained architectural depth.
+   ─────────────────────────────────────────────────────────────────── */
+.collection-product-card[data-tilt-layered] > .tilt-card-inner {
+  margin-top: 14px;
+  gap: 10px;
+}
+.collection-product-card[data-tilt-layered] .tilt-layer-title {
+  transform: translateZ(40px);
+  display: flex;
+  flex-direction: column;
+}
+/* ── Layered 3D tilt with deeper image projection (Cypress card: [data-tilt-deeper]) ─
+   Refined subtle depth pop for editorial showcase.
+   ─────────────────────────────────────────────────────────────────── */
+.collection-product-card[data-tilt-deeper] > .tilt-card-inner {
+  margin-top: 14px;
+  gap: 10px;
+}
+.collection-product-card[data-tilt-deeper] .tilt-layer-image {
+  transform: translateZ(160px);
+}
+.collection-product-card[data-tilt-deeper] .tilt-layer-title {
+  transform: translateZ(40px);
+  display: flex;
+  flex-direction: column;
+}
+.collection-product-card[data-tilt-deeper] .tilt-layer-cta {
+  transform: translateZ(60px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.collection-product-card[data-tilt-layered] .tilt-layer-cta {
+  transform: translateZ(60px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}

@@ -1,0 +1,33 @@
+---
+// Our Story section — editorial 2-column
+import '../sections/productDetail.css';
+
+export interface Props {
+  eyebrow?: string;
+  heading: string;
+  description: string;
+  image: string;
+}
+
+const { eyebrow = 'Our Story', heading, description, image } = Astro.props;
+---
+
+<section class="detail-story" aria-label="Product story">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="detail-story-grid">
+      <!-- Text Column -->
+      <div>
+        <span class="detail-story-eyebrow">{eyebrow}</span>
+        <h2 class="detail-story-heading">{heading}</h2>
+        <p class="detail-story-text">{description}</p>
+      </div>
+
+      <!-- Image Column -->
+      <div>
+        <div class="detail-story-image-wrap">
+          <img src={image} alt={heading} width="700" height="525" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

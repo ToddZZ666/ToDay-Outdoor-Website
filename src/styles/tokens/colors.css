@@ -1,0 +1,41 @@
+/**
+ * Color Design Tokens — ToDay Design System
+ * 
+ * Single source of truth for color palette, surface elevations, text contrast,
+ * borders, and brand accents across the site.
+ */
+
+@theme {
+  /* Page Backgrounds & Elevated Surfaces */
+  --color-background: #FAF8F5;          /* Warm off-white primary page background */
+  --color-surface: #FFFFFF;             /* Pure white elevated surface for cards, buttons, modals */
+  --color-surface-soft: #F7F4F0;        /* Warm light gray surface for hover & active states */
+  --color-surface-elevated: #FAFAF8;    /* Soft warm surface for spec tables & callouts */
+  --color-dark-surface: #222222;        /* Dark background for hero & vision chapters */
+
+  /* Footer Colors */
+  --color-footer-bg: #F5F2ED;           /* Soft warm ending section background */
+  --color-footer-heading: #2F2A26;      /* High contrast footer heading */
+  --color-footer-body: #5D564F;         /* Readable footer body text */
+  --color-footer-muted: #7D756C;        /* Muted footer text & copyright */
+  --color-footer-border: #E6E1DB;       /* Subtle footer divider line */
+  --color-footer-link: #2F2A26;         /* Footer link default state */
+
+  /* Primary Brand Accent (Terracotta) */
+  --color-brand: #C67A52;               /* Terracotta primary brand accent */
+  --color-brand-hover: #B36842;         /* Terracotta hover state */
+  --color-brand-active: #A66A3D;        /* Darker terracotta active/focus state */
+  --color-brand-soft: #F0E2D8;          /* Light warm terracotta tint for active badges & subtle highlights */
+
+  /* Text Hierarchy Colors */
+  --color-text-heading: #222222;        /* Deep warm charcoal for headings */
+  --color-text-body: #5E5E5E;           /* Readable neutral gray for body text */
+  --color-text-muted: #8A847E;          /* Muted gray for captions, meta, and secondary labels */
+  --color-text-icon: #4A4A4A;           /* Neutral gray for system icons & arrows */
+  --color-text-inverse: #FFFFFF;        /* Pure white for text on dark backgrounds */
+
+  /* Borders & Dividers */
+  --color-border: #EAE5DF;              /* Standard subtle border */
+  --color-border-strong: #D9D2C9;       /* High-contrast border for inputs & key dividers */
+  --color-border-focus: #C67A52;        /* Focus indicator border */
+}

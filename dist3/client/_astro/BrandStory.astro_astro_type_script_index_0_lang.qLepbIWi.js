@@ -1,0 +1,1 @@
+globalThis.process??={},globalThis.process.env??={};import{t as e}from"./section.Cf3dPmZR.js";e(`[aria-label="Brand story"]`,{children:`h2, p, a, .story-stack`});

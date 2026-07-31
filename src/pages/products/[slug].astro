@@ -1,0 +1,140 @@
+---
+// Product Detail Template — data-driven, renders any product from the registry
+// Uses the legacy sections layout (the preserved Product Detail layout).
+import MainLayout from '../../layouts/MainLayout.astro';
+import CollectionBrandValues from '../../sections/CollectionBrandValues.astro';
+import ProductBreadcrumb from '../../sections/ProductBreadcrumb.astro';
+import ProductHeroGallery from '../../sections/ProductHeroGallery.astro';
+import ProductInfoSidebar from '../../sections/ProductInfoSidebar.astro';
+import ProductOurStory from '../../sections/ProductOurStory.astro';
+import ProductFeaturesRow from '../../sections/ProductFeaturesRow.astro';
+import ProductMaterials from '../../sections/ProductMaterials.astro';
+import ProductSpecifications from '../../sections/ProductSpecifications.astro';
+import ProductRelatedProducts from '../../sections/ProductRelatedProducts.astro';
+import ProductBespokeBanner from '../../sections/ProductBespokeBanner.astro';
+import { getProduct, getRelatedProducts, getAllProductSlugs } from '../../models/product';
+import type { ProductHeroImage } from '../../models/product';
+
+export function getStaticPaths() {
+  const slugs = getAllProductSlugs();
+  return slugs.map((slug) => ({
+    params: { slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const product = getProduct(slug || '');
+if (!product) {
+  return Astro.redirect('/collection');
+}
+
+// ─── Shape the registry Product into the legacy section props ────────────
+
+// Gallery images: convert to { src, alt, thumb }
+const images: ProductHeroImage[] = product.gallery
+  .slice()
+  .sort((a, b) => a.order - b.order)
+  .map((g) => ({
+    src: g.image,
+    thumb: g.thumb || g.image,
+    alt: g.alt,
+  }));
+
+// Fabric / frame split — reuse the established heuristic:
+// Natural, Cream, Charcoal, Sage → fabric colors; the rest → frame finishes.
+const fabricColors = product.colorOptions.filter((c) =>
+  ['Natural', 'Cream', 'Charcoal', 'Sage'].includes(c.name),
+);
+const frameFinishes = product.colorOptions.filter(
+  (c) => !['Natural', 'Cream', 'Charcoal', 'Sage'].includes(c.name),
+);
+
+// Configuration labels (sections expect plain strings)
+const configurations = product.configurations.map((c) => c.label);
+
+// Related products resolved via the product model — returns ready-to-render cards.
+const relatedCards = getRelatedProducts(product.slug, product.relatedProducts);
+
+// Materials: sections expect { name, description, image }.
+// MaterialHighlights have no per-item image, so leave image blank; the
+// detail-material-image cell degrades gracefully in CSS.
+const materialCards = product.materialHighlights.map((m) => ({
+  name: m.title,
+  description: m.description,
+  image: m.image || '',
+}));
+
+// Dimensions: map the registry's camelCase to the sections' shorter shape.
+const dimensions = {
+  width: product.dimensions.overallWidth,
+  depth: product.dimensions.overallDepth,
+  height: product.dimensions.overallHeight,
+  seatHeight: product.dimensions.seatHeight,
+  weight: product.dimensions.weight,
+};
+---
+
+<MainLayout
+  title={product.seo.title}
+  description={product.seo.description}
+>
+  <div class="product-detail-page">
+
+    <!-- Breadcrumb -->
+    <ProductBreadcrumb
+      category={product.categoryName}
+      productName={product.name}
+    />
+
+    <!-- Product Hero -->
+    <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section class="detail-hero" aria-label="Product details">
+        <div class="detail-hero-grid">
+          <ProductHeroGallery productName={product.name} images={images} />
+          <ProductInfoSidebar
+            category={product.categoryName}
+            name={product.name}
+            description={product.shortDescription}
+            price={product.price}
+            priceFrom={product.priceFrom ?? false}
+            fabricColors={fabricColors}
+            frameFinishes={frameFinishes}
+            configurations={configurations}
+            features={product.features}
+          />
+        </div>
+      </section>
+    </div>
+
+    <!-- Our Story -->
+    <ProductOurStory
+      eyebrow={product.story.eyebrow}
+      heading={product.story.title}
+      description={product.story.description}
+      image={product.story.image}
+    />
+
+    <!-- Features -->
+    <ProductFeaturesRow features={product.features} />
+
+    <!-- Premium Materials -->
+    <ProductMaterials materials={materialCards} />
+
+    <!-- Specifications -->
+    <ProductSpecifications
+      specifications={product.specifications}
+      dimensions={dimensions}
+      diagramImage={product.dimensionDrawing}
+    />
+
+    <!-- Complete the Space (Related Products) -->
+    <ProductRelatedProducts products={relatedCards} />
+
+    <!-- Bespoke Solutions Banner -->
+    <ProductBespokeBanner />
+
+    <!-- Brand Values -->
+    <CollectionBrandValues />
+
+  </div>
+</MainLayout>

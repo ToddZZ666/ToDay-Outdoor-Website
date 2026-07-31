@@ -1,0 +1,23 @@
+---
+// Product Detail Breadcrumb
+import '../sections/productDetail.css';
+
+export interface Props {
+  category: string;
+  productName: string;
+}
+
+const { category, productName } = Astro.props;
+---
+
+<div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+  <nav class="detail-breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span class="detail-breadcrumb-sep">/</span>
+    <a href="/collection">Collection</a>
+    <span class="detail-breadcrumb-sep">/</span>
+    <span class="detail-breadcrumb-current">{category}</span>
+    <span class="detail-breadcrumb-sep">/</span>
+    <span class="detail-breadcrumb-current">{productName}</span>
+  </nav>
+</div>

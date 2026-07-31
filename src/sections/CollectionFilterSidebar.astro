@@ -1,0 +1,93 @@
+---
+// Filter Sidebar — accordion-based, no cards, minimal lines
+import '../sections/collection.css';
+
+export interface Props {
+  /** Filter groups to render */
+  groups: {
+    title: string;
+    key: string;
+    options: { label: string; value: string; count?: number }[];
+    type?: 'checkbox' | 'radio';
+    openByDefault?: boolean;
+  }[];
+}
+
+const { groups } = Astro.props;
+---
+
+<aside class="collection-filter-sidebar" aria-label="Product filters">
+  {groups.map((group) => (
+    <div class={`collection-filter-group ${group.openByDefault ? 'open' : ''}`}>
+      <button
+        class="collection-filter-header"
+        aria-expanded={group.openByDefault ?? false}
+        aria-controls={`filter-${group.key}`}
+        data-filter-toggle
+      >
+        <span>{group.title}</span>
+        <svg
+          class="collection-filter-chevron"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+      <div class="collection-filter-body" id={`filter-${group.key}`}>
+        {group.options.map((opt) => (
+          <label class="collection-filter-option">
+            <input
+              type={group.type || 'checkbox'}
+              name={`filter-${group.key}`}
+              value={opt.value}
+            />
+            <span class="collection-filter-option-text">{opt.label}</span>
+            {opt.count != null && <span class="collection-filter-option-count">{opt.count}</span>}
+          </label>
+        ))}
+      </div>
+    </div>
+  ))}
+
+  <button class="collection-filter-clear" data-filter-clear>
+    Clear Filters
+  </button>
+</aside>
+
+<!-- Accordion toggle + clear filters -->
+<script>
+  import { revealFilterGroup } from '../motion/collection.js';
+
+  (function () {
+    // Toggle accordion with soft expand/collapse animation.
+    document.querySelectorAll('[data-filter-toggle]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const group = btn.closest('.collection-filter-group');
+        if (!group) return;
+        const wasOpen = group.classList.contains('open');
+        // Apply class state immediately for CSS hover/chevron styling.
+        group.classList.toggle('open', !wasOpen);
+        btn.setAttribute('aria-expanded', String(!wasOpen));
+        // Then animate the panel height.
+        revealFilterGroup(btn);
+      });
+    });
+
+    // Clear all filters
+    document.querySelectorAll('[data-filter-clear]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const sidebar = btn.closest('.collection-filter-sidebar');
+        if (!sidebar) return;
+        sidebar.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach((el) => {
+          (el as HTMLInputElement).checked = false;
+        });
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,113 @@
+/**
+ * Motion reveal primitives for the Homepage.
+ *
+ * Progressive-reveal pattern (fail-safe):
+ *   - Elements are VISIBLE from the moment the browser paints them. No
+ *     `visibility: hidden`. If JS never runs, the observer never fires, or
+ *     IntersectionObserver is non-functional, content is ALWAYS readable.
+ *   - The gentle entrance is a BONUS, not a gating mechanism.
+ *
+ * How it works:
+ *   1. Every .reveal-* starts at the end-state (opacity 1, transform 0) by
+ *      default — fully visible, no animation. This is the no-JS / fallback path.
+ *   2. The observer sets an inline style to the ENTRANCE state (e.g.
+ *      opacity 0, translateY 20px) and forces a reflow so the browser
+ *      commits that starting point.
+ *   3. The observer then adds .is-revealed, which triggers the CSS keyframe
+ *      animation to the end-state.
+ *   4. This "set start → reflow → play" sequence runs with the per-element
+ *      stagger delay (data-reveal-idx), creating the scroll-triggered reveal.
+ *
+ * Why this is safer than "start hidden, reveal on scroll":
+ *   - Content is never gated on JavaScript.
+ *   - Content is never gated on IntersectionObserver firing (which can be
+ *     non-functional in some contexts / iframes / headless renderers).
+ *   - The animation still plays correctly when JS works, with full stagger.
+ */
+
+/* ── Trigger class (added by JS after start-state is committed) ─ */
+.is-revealed {
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+/* ── Section title / heading (MotionTokens.section: 600ms / 20px) */
+.reveal-section {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-section.is-revealed {
+  animation: revealSection 600ms cubic-bezier(0.25, 1, 0.3, 1) both;
+}
+@keyframes revealSection {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Image (MotionTokens.image: 1100ms / scale 1.04 → 1.00) ─── */
+.reveal-image {
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+.reveal-image.is-revealed {
+  animation: revealImage 1100ms cubic-bezier(0.25, 1, 0.3, 1) both;
+}
+@keyframes revealImage {
+  from { opacity: 0; transform: scale(1.04); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Paragraph / sentence (MotionTokens.sentence: 500ms / 12px) */
+.reveal-sentence {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-sentence.is-revealed {
+  animation: revealSentence 500ms cubic-bezier(0.25, 1, 0.3, 1) both;
+}
+@keyframes revealSentence {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Card (MotionTokens.card: 450ms / 12px) ──────────────────── */
+.reveal-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-card.is-revealed {
+  animation: revealCard 450ms cubic-bezier(0.25, 1, 0.3, 1) both;
+}
+@keyframes revealCard {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── CTA button (MotionTokens.cta: 500ms / scale 0.98) ───────── */
+.reveal-cta {
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: center center;
+}
+.reveal-cta.is-revealed {
+  animation: revealCta 500ms cubic-bezier(0.25, 1, 0.3, 1) both;
+}
+@keyframes revealCta {
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Generic reveal ──────────────────────────────────────────── */
+.reveal-generic {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-generic.is-revealed {
+  animation: revealGeneric 600ms cubic-bezier(0.25, 1, 0.3, 1) both;
+}
+@keyframes revealGeneric {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

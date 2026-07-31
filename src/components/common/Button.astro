@@ -1,0 +1,53 @@
+---
+export interface Props {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  class?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  disabled = false,
+  class: className = '',
+} = Astro.props;
+
+const baseClasses =
+  'inline-flex items-center justify-center font-medium transition-all duration-200 ease-[cubic-bezier(0.25,1,0.3,1)] active:scale-[0.985] active:duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:transition-transform [&_svg]:duration-200 group';
+
+const variantClasses: Record<string, string> = {
+  primary:
+    'bg-brand text-white hover:bg-brand-hover focus:ring-brand rounded-button',
+  secondary:
+    'bg-surface text-text-heading hover:bg-surface-soft focus:ring-brand rounded-button border border-border-strong',
+  outline:
+    'border border-brand text-brand hover:bg-brand-soft focus:ring-brand rounded-button',
+  ghost:
+    'text-text-body hover:bg-surface-soft focus:ring-brand rounded-button',
+};
+
+const sizeClasses: Record<string, string> = {
+  sm: 'px-3 py-1.5 text-sm',
+  md: 'px-5 py-2.5 text-base',
+  lg: 'px-7 py-3 text-lg',
+};
+
+const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+---
+
+{
+  href ? (
+    <a href={href} class={classes}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} disabled={disabled} class={classes}>
+      <slot />
+    </button>
+  )
+}

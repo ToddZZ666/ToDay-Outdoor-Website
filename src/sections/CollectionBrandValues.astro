@@ -1,0 +1,100 @@
+---
+const values = [
+  {
+    icon: 'quality',
+    title: 'Premium Quality',
+    description: 'Hand-selected materials built to grace your outdoor space for years to come.',
+  },
+  {
+    icon: 'weather',
+    title: 'Weather Resistant',
+    description: 'Engineered to endure sun, rain, and frost without losing character.',
+  },
+  {
+    icon: 'sustainable',
+    title: 'Sustainable Design',
+    description: 'Responsibly sourced, designed for longevity, crafted with care for the planet.',
+  },
+  {
+    icon: 'delivery',
+    title: 'Worldwide Delivery',
+    description: 'Carefully packaged and delivered to your doorstep, wherever you are.',
+  },
+];
+---
+
+<section class="collection-brand-values" aria-label="Brand values">
+  <div class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="collection-values-grid">
+      {values.map((item) => (
+        <article class="collection-value-item">
+          <div class="collection-value-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+              {
+                item.icon === 'quality' && <path d="M12 3l2.5 5.5 6 .9-4.3 4.2 1 6-5.2-3-5.2 3 1-6L3.5 9.4l6-.9L12 3z"/>
+              }
+              {
+                item.icon === 'weather' && <path d="M4 14a4 4 0 0 1 0-8 5 5 0 0 1 9.5-1.5A4 4 0 0 1 18 11H5a1 1 0 0 0 0 2h12M7 18h10M9 21h6"/>
+              }
+              {
+                item.icon === 'sustainable' && <path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10z"/>
+              }
+              {
+                item.icon === 'delivery' && <g><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="4" ry="10"/><line x1="2" y1="12" x2="22" y2="12"/></g>
+              }
+            </svg>
+          </div>
+          <h3 class="collection-value-title">{item.title}</h3>
+          <p class="collection-value-desc">{item.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { revealStagger } from '../motion/collection.js';
+  revealStagger('.collection-brand-values', { children: 'article' });
+</script>
+
+<style is:global>
+  .collection-brand-values {
+    border-top: 1px solid #EAE5DF;
+  }
+  .collection-values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 64px;
+  }
+  @media (min-width: 1024px) {
+    .collection-values-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+  }
+  .collection-value-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .collection-value-icon {
+    color: #C67A52;
+    margin-bottom: 4px;
+  }
+  .collection-value-title {
+    font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: #222222;
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  .collection-value-desc {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #5E5E5E;
+    margin: 0;
+  }
+</style>

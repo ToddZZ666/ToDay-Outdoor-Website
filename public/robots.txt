@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://today-outdoor.com/sitemap-index.xml

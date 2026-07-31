@@ -1,0 +1,41 @@
+---
+// Editorial Page Header — brand-book style, no hero overlay
+---
+
+<header class="collection-editorial">
+  <div class="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <div class="collection-editorial-grid">
+      <!-- Left: breadcrumb, title, description -->
+      <div>
+        <p class="collection-breadcrumb">
+          <a href="/">Home</a>
+          <span class="collection-breadcrumb-sep">/</span>
+          Collection
+        </p>
+        <h1 class="collection-editorial-title">
+          Outdoor Living<br />Collection
+        </h1>
+        <p class="collection-editorial-desc">
+          Timeless designs crafted for beautiful moments outdoors.
+        </p>
+      </div>
+
+      <!-- Right: editorial still-life -->
+      <div class="collection-editorial-image-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=700&q=80&auto=format&fit=crop"
+          alt="Editorial still life — ceramics, greenery and natural light"
+          width="700"
+          height="875"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  import { revealEditorial } from '../motion/collection.js';
+  revealEditorial('.collection-editorial');
+</script>

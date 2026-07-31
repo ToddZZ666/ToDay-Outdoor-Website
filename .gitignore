@@ -1,0 +1,40 @@
+# Build output
+dist/
+
+# Generated types
+.astro/
+
+# Dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.production
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# macOS-specific files
+.DS_Store
+
+# JetBrains setting folder
+.idea/
+
+# VS Code
+.vscode/settings.json
+
+# Wrangler
+.wrangler/
+
+# Coverage
+coverage/
+
+# Custom build folder
+dist4/

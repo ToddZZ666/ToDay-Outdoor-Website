@@ -1,0 +1,52 @@
+---
+// Craftsmanship — material showcase with large images
+import './about.css';
+
+export interface Props {
+  items: { name: string; description: string; image: string }[];
+}
+
+const {
+  items = [
+    {
+      name: 'Teak Wood',
+      description: 'FSC-certified teak with natural oils that resist moisture and decay.',
+      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=85&auto=format&fit=crop',
+    },
+    {
+      name: 'Olefin Fabric',
+      description: 'UV-resistant, water-repellent, and soft to the touch.',
+      image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&q=85&auto=format&fit=crop',
+    },
+    {
+      name: 'Handwoven Rope',
+      description: 'Artisan-crafted rope with natural texture and flexibility.',
+      image: 'https://images.unsplash.com/photo-1616627561950-9f746e330187?w=800&q=85&auto=format&fit=crop',
+    },
+    {
+      name: 'Aluminum Frame',
+      description: 'Powder-coated aluminum for strength without the weight.',
+      image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=85&auto=format&fit=crop',
+    },
+  ]
+} = Astro.props;
+---
+
+<section class="about-craftsmanship" aria-label="Craftsmanship and materials">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <span class="about-craftsmanship-heading">Craftsmanship</span>
+    <h2 class="about-craftsmanship-title">Materials chosen with care, crafted with purpose.</h2>
+
+    <div class="about-craftsmanship-grid">
+      {items.map((item) => (
+        <article class="about-craftsmanship-card">
+          <div class="about-craftsmanship-image">
+            <img src={item.image} alt={item.name} width="600" height="450" loading="lazy" />
+          </div>
+          <h3 class="about-craftsmanship-name">{item.name}</h3>
+          <p class="about-craftsmanship-desc">{item.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

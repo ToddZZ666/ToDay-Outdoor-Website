@@ -1,0 +1,1 @@
+globalThis.process??={},globalThis.process.env??={};import{a as e}from"./collection.BdN68At0.js";e(`.collection-brand-values`,{children:`article`});

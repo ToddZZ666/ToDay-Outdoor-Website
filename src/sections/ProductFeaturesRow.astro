@@ -1,0 +1,24 @@
+---
+// Numbered Architectural Editorial Strip — replaces icon grid for distinct product identity
+import '../sections/productDetail.css';
+
+export interface Props {
+  features: { icon: string; title: string; description: string }[];
+}
+
+const { features } = Astro.props;
+---
+
+<section class="detail-feature-row border-t border-border/40" aria-label="Product specifications highlights">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="detail-feature-row-grid">
+      {features.map((f, idx) => (
+        <article class="detail-feature-item">
+          <span class="detail-feature-num" aria-hidden="true">0{idx + 1}</span>
+          <h3 class="detail-feature-item-title">{f.title}</h3>
+          <p class="detail-feature-item-desc">{f.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

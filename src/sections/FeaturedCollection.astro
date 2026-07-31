@@ -1,0 +1,229 @@
+---
+
+export interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+const hasLocalImages = false;
+
+const collections = [
+  {
+    name: 'Outdoor Sofa',
+    description: 'Relaxed outdoor seating for everyday comfort.',
+    image: hasLocalImages
+      ? '/images/collections/outdoor-sofa.jpg'
+      : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80&auto=format&fit=crop',
+    slug: '/collection/outdoor-sofa',
+  },
+  {
+    name: 'Dining Collection',
+    description: 'Gather around beautifully crafted outdoor tables.',
+    image: hasLocalImages
+      ? '/images/collections/dining.jpg'
+      : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80&auto=format&fit=crop',
+    slug: '/collection/dining',
+  },
+  {
+    name: 'Fire Pit Collection',
+    description: 'Warm moments shared beneath the open sky.',
+    image: hasLocalImages
+      ? '/images/collections/fire-pit.jpg'
+      : 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600&q=80&auto=format&fit=crop',
+    slug: '/collection/fire-pit',
+  },
+  {
+    name: 'Lounge Collection',
+    description: 'Designed for slow mornings and peaceful evenings.',
+    image: hasLocalImages
+      ? '/images/collections/lounge.jpg'
+      : 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&q=80&auto=format&fit=crop',
+    slug: '/collection/lounge',
+  },
+  {
+    name: 'Accessories',
+    description: 'Complete every outdoor setting with thoughtful details.',
+    image: hasLocalImages
+      ? '/images/collections/accessories.jpg'
+      : 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80&auto=format&fit=crop',
+    slug: '/collection/accessories',
+  },
+];
+---
+
+<section
+  class="bg-white px-4 py-[8.5rem] sm:px-6 lg:px-8"
+  aria-label="Featured collection"
+>
+  <div class="mx-auto max-w-7xl">
+    <!-- Section Heading -->
+    <div class="mb-6 sm:mb-8">
+      <h2 class="mb-5 text-left text-3xl font-medium text-text-heading sm:text-4xl lg:text-[4rem]">
+        Featured Collection
+      </h2>
+      <p class="max-w-xl text-left text-base leading-relaxed text-text-muted">
+        Discover collections crafted for modern outdoor living.
+      </p>
+    </div>
+  </div>
+
+  <!-- Scroll Controls -->
+  <div class="mx-auto flex max-w-7xl items-center justify-end gap-3 px-4 pb-6 sm:px-6 lg:px-8">
+    <button
+      id="scroll-prev"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-text-icon transition-colors hover:border-border-strong hover:text-text-heading focus:outline-none focus:ring-2 focus:ring-brand"
+      aria-label="Previous collections"
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+    </button>
+    <button
+      id="scroll-next"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-text-icon transition-colors hover:border-border-strong hover:text-text-heading focus:outline-none focus:ring-2 focus:ring-brand"
+      aria-label="Next collections"
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+    </button>
+  </div>
+
+  <!-- Scroll Gallery -->
+  <div class="mx-auto max-w-7xl overflow-hidden px-4 sm:px-6 lg:px-8">
+    <div
+      id="scroll-container"
+      class="scroll-container flex gap-6 overflow-x-auto pb-4"
+    >
+      {collections.map((item, idx) => (
+        <a
+          href={item.slug}
+          class="group card-item flex w-[75vw] shrink-0 flex-col sm:w-[45vw] lg:w-[30vw]"
+        >
+          <div class="overflow-hidden rounded-[16px] shadow-card-sm">
+            <img
+              src={item.image}
+              alt={item.name}
+              width="600"
+              height="750"
+              class="aspect-[4/5] h-auto w-full object-cover motion-image"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+
+          <div class="mt-5">
+            <h3 class="mb-1.5 text-lg font-medium text-text-heading motion-title">
+              {item.name}
+            </h3>
+            <p class="mb-3 text-sm leading-relaxed text-text-muted">
+              {item.description}
+            </p>
+            <span
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-brand transition-all duration-300 group-hover:gap-2.5"
+            >
+              Explore
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  const container = document.getElementById('scroll-container');
+  const prevBtn = document.getElementById('scroll-prev');
+  const nextBtn = document.getElementById('scroll-next');
+
+  if (container && prevBtn && nextBtn) {
+    const scrollAmount = () => {
+      const card = container.querySelector('.card-item');
+      if (!card) return 320;
+      return card.offsetWidth + 24; // card width + gap
+    };
+
+    prevBtn.addEventListener('click', () => {
+      container.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+    });
+
+    nextBtn.addEventListener('click', () => {
+      container.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+    });
+
+    // Enable drag scrolling
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    container.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+      container.style.cursor = 'grabbing';
+    });
+
+    container.addEventListener('mouseleave', () => {
+      isDown = false;
+      container.style.cursor = 'grab';
+    });
+
+    container.addEventListener('mouseup', () => {
+      isDown = false;
+      container.style.cursor = 'grab';
+    });
+
+    container.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      container.scrollLeft = scrollLeft - walk;
+    });
+
+    container.style.cursor = 'grab';
+  }
+</script>
+
+<script>
+  import { revealStagger } from '../motion/section.js';
+  revealStagger('[aria-label="Featured collection"]', {
+    children: 'h2, p, .card-item',
+  });
+</script>
+
+<style is:global>
+  .scroll-container {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card-item {
+    scroll-snap-align: start;
+  }
+
+  /* ── Motion hover (MotionTokens.hover) ─────────────────────────── */
+  .shadow-card-sm {
+    box-shadow: 0 4px 16px -10px rgba(34, 34, 34, 0.10);
+  }
+
+  .card-item .motion-image {
+    transform: scale(1);
+    transition: transform 350ms cubic-bezier(0.25, 1, 0.3, 1);
+  }
+  .card-item:hover .motion-image {
+    transform: scale(1.02);
+  }
+  .card-item:hover .shadow-card-sm {
+    box-shadow: 0 12px 28px -14px rgba(34, 34, 34, 0.18);
+  }
+  .card-item .motion-title {
+    transition: transform 250ms cubic-bezier(0.25, 1, 0.3, 1);
+  }
+  .card-item:hover .motion-title {
+    transform: translateY(-2px);
+  }
+</style>

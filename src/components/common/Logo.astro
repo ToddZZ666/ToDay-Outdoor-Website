@@ -1,0 +1,22 @@
+---
+export interface Props {
+  href?: string;
+  class?: string;
+}
+
+const { href = '/', class: className = '' } = Astro.props;
+---
+
+<a
+  href={href}
+  class={`inline-flex items-center ${className}`}
+  aria-label="ToDay Home"
+>
+  <img
+    src="/logo.svg"
+    alt="ToDay"
+    width="480"
+    height="160"
+    class="h-[100px] w-auto lg:h-[118px]"
+  />
+</a>

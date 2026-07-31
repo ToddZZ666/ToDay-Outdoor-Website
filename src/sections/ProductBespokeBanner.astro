@@ -1,0 +1,43 @@
+---
+// Bespoke Solutions Banner — with gradient image-to-text transition
+import '../sections/productDetail.css';
+
+export interface Props {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  image?: string;
+  href?: string;
+}
+
+const {
+  eyebrow = 'Bespoke Solutions',
+  title = 'Looking for Something More Personal?',
+  description = 'We offer custom sizes, materials, and finishes to fit your unique outdoor space.',
+  buttonText = 'Contact Us',
+  image = '/images/coastal-library/12-complete-space.jpg',
+  href = '/contact',
+} = Astro.props;
+---
+
+<section class="detail-bespoke" aria-label="Bespoke solutions">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="detail-bespoke-banner">
+      <div class="detail-bespoke-grid">
+        <!-- Image with gradient overlay for seamless transition -->
+        <div class="detail-bespoke-image-wrap">
+          <img src={image} alt={title} width="800" height="420" />
+        </div>
+
+        <!-- CTA -->
+        <div class="detail-bespoke-cta">
+          <span class="detail-bespoke-eyebrow">{eyebrow}</span>
+          <h2 class="detail-bespoke-title">{title}</h2>
+          <p class="detail-bespoke-text">{description}</p>
+          <a href={href} class="detail-bespoke-btn">{buttonText}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

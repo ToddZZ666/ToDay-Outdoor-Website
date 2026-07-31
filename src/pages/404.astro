@@ -1,0 +1,97 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Logo from '../components/common/Logo.astro';
+
+const title = 'Page Not Found — ToDay';
+const description = 'The space you are looking for is currently empty.';
+---
+
+<MainLayout title={title} description={description} noIndex={true} hideFooter={true}>
+  <section
+    class="relative flex min-h-[calc(100dvh-86px)] w-full flex-col items-center justify-center overflow-hidden bg-background py-16"
+    aria-label="404 Page Not Found"
+  >
+    <!-- Content -->
+    <div class="relative z-10 flex w-full max-w-2xl flex-col items-center px-6 text-center">
+      
+      <!-- Brand Logo -->
+      <div id="not-found-logo" class="mb-10 flex w-full justify-center opacity-0">
+        <div class="translate-x-[80px]">
+          <Logo class="pointer-events-none" />
+        </div>
+      </div>
+
+      <p id="not-found-kicker" class="mb-6 text-sm font-semibold tracking-[0.2em] text-brand uppercase opacity-0">
+        404 — Not Found
+      </p>
+
+      <h1
+        id="not-found-title"
+        class="mb-6 text-4xl font-display-light leading-[1.1] text-text-heading sm:text-5xl lg:text-6xl opacity-0"
+      >
+        This space is currently empty.
+      </h1>
+
+      <p id="not-found-subtitle" class="mb-10 text-lg leading-relaxed text-text-body opacity-0">
+        The page you are looking for may have been moved or no longer exists.
+      </p>
+
+      <div id="not-found-cta" class="opacity-0">
+        <a
+          href="/collection"
+          class="group inline-flex items-center gap-4 rounded-button border border-brand bg-transparent px-8 py-4 text-sm font-medium tracking-[0.1em] text-brand uppercase transition-all duration-300 hover:bg-brand hover:text-white focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 active:scale-[0.985]"
+        >
+          <span>Return to Collection</span>
+          <span
+            class="inline-block h-px w-6 bg-brand transition-all duration-300 group-hover:w-10 group-hover:bg-white"
+          />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { gsap } from "gsap";
+
+    const tl = gsap.timeline({ delay: 0.1 });
+
+    // Fade in logo
+    tl.fromTo(
+      "#not-found-logo",
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }
+    );
+
+    // Fade in the kicker
+    tl.fromTo(
+      "#not-found-kicker",
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
+      "<0.15"
+    );
+
+    // Fade in title
+    tl.fromTo(
+      "#not-found-title",
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+      "<0.15"
+    );
+
+    // Fade in subtitle
+    tl.fromTo(
+      "#not-found-subtitle",
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
+      "<0.15"
+    );
+
+    // Fade in CTA
+    tl.fromTo(
+      "#not-found-cta",
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
+      "<0.15"
+    );
+  </script>
+</MainLayout>

@@ -1,0 +1,24 @@
+---
+import Container from '../common/Container.astro';
+import Logo from '../common/Logo.astro';
+import Navigation from './Navigation.astro';
+import MobileMenu from './MobileMenu.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 overflow-hidden border-b border-border bg-white/85 backdrop-blur-md">
+  <Container>
+    <div class="flex h-[72px] items-center justify-between lg:h-[86px]">
+      <Logo />
+
+      <!-- Desktop Navigation -->
+      <Navigation class="hidden sm:flex" currentPath={currentPath} />
+
+      <!-- Mobile Menu Toggle -->
+      <MobileMenu open={false} currentPath={currentPath} />
+    </div>
+  </Container>
+</header>
+
+<slot />

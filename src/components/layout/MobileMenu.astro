@@ -1,0 +1,70 @@
+---
+export interface Props {
+  open: boolean;
+  currentPath?: string;
+  class?: string;
+}
+
+const { open, currentPath = '/', class: className = '' } = Astro.props;
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/collection', label: 'Collection' },
+  { href: '/about', label: 'About Us' },
+  { href: '/contact', label: 'Contact' },
+];
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  if (href === '/collection' && currentPath.startsWith('/products')) return true;
+  return currentPath.startsWith(href);
+}
+---
+
+<button
+  id="mobile-menu-toggle"
+  class={`inline-flex items-center justify-center rounded-md p-2 text-text-icon hover:bg-surface-soft focus:outline-none focus:ring-2 focus:ring-brand sm:hidden ${className}`}
+  aria-expanded={open}
+  aria-controls="mobile-menu"
+  aria-label="Toggle menu"
+>
+  <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+  </svg>
+</button>
+
+<div
+  id="mobile-menu"
+  class="hidden sm:hidden"
+  role="menu"
+>
+  <div class="space-y-1 border-t border-border px-4 pb-4 pt-3 bg-white/95 backdrop-blur-md">
+    {links.map((link) => (
+      <a
+        href={link.href}
+        class={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${
+          isActive(link.href)
+            ? 'bg-brand-soft text-brand'
+            : 'text-text-body hover:bg-surface-soft hover:text-text-heading'
+        }`}
+        role="menuitem"
+        aria-current={isActive(link.href) ? 'page' : undefined}
+      >
+        {link.label}
+      </a>
+    ))}
+  </div>
+</div>
+
+<script is:inline>
+  const toggleBtn = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (toggleBtn && mobileMenu) {
+    toggleBtn.addEventListener('click', () => {
+      const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+      toggleBtn.setAttribute('aria-expanded', (!isExpanded).toString());
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+</script>

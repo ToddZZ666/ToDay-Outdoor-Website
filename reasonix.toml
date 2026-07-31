@@ -1,0 +1,2 @@
+[permissions]
+allow = ["Edit", "Bash(Get-Content \"src/components/layout/Header.astro\" | Select-Object -First 15)"]

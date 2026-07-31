@@ -1,0 +1,113 @@
+---
+export interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+// Image paths — set hasLocalImages to true once files exist under /public/images/inspiration/
+const hasLocalImages = false;
+
+const largeImage = hasLocalImages
+  ? '/images/inspiration/garden-lounge.jpg'
+  : 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80&auto=format&fit=crop';
+
+const smallImage1 = hasLocalImages
+  ? '/images/inspiration/outdoor-dining.jpg'
+  : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80&auto=format&fit=crop';
+
+const smallImage2 = hasLocalImages
+  ? '/images/inspiration/poolside-living.jpg'
+  : 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&q=80&auto=format&fit=crop';
+---
+
+<section
+  class="bg-white px-4 py-[8.5rem] sm:px-6 lg:px-8"
+  aria-label="Outdoor living inspiration"
+>
+  <div class="mx-auto max-w-7xl">
+    <div class="mb-16 text-center sm:mb-20">
+      <h2 class="mb-5 text-center text-3xl font-medium text-text-heading sm:text-4xl lg:text-[4rem]">
+        Made for Every Outdoor Moment
+      </h2>
+      <p class="mx-auto max-w-xl text-center text-base leading-relaxed text-text-muted">
+        Discover thoughtfully designed outdoor spaces that inspire everyday living.
+      </p>
+    </div>
+
+    <figure class="group mb-8 sm:mb-10 lg:mb-12">
+      <div class="overflow-hidden rounded-[16px]">
+        <img
+          src={largeImage}
+          alt="Garden lounge area with comfortable outdoor seating surrounded by greenery"
+          width="1200"
+          height="675"
+          class="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <figcaption class="mt-6 text-center">
+        <h3 class="mb-2 text-center text-xl font-medium text-text-heading">
+          Garden Lounge
+        </h3>
+        <p class="text-center text-sm leading-relaxed text-text-muted">
+          A peaceful corner to slow down and reconnect with nature.
+        </p>
+      </figcaption>
+    </figure>
+
+    <div class="grid grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-12">
+      <figure class="group overflow-hidden">
+        <div class="overflow-hidden rounded-[16px]">
+          <img
+            src={smallImage1}
+            alt="Outdoor dining set arranged for an al fresco meal"
+            width="800"
+            height="500"
+            class="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <figcaption class="mt-5 text-center">
+          <h3 class="mb-2 text-center text-lg font-medium text-text-heading">
+            Outdoor Dining
+          </h3>
+          <p class="text-center text-sm leading-relaxed text-text-muted">
+            Share unforgettable meals under the open sky.
+          </p>
+        </figcaption>
+      </figure>
+
+      <figure class="group overflow-hidden">
+        <div class="overflow-hidden rounded-[16px]">
+          <img
+            src={smallImage2}
+            alt="Poolside lounge chairs with modern outdoor furniture"
+            width="800"
+            height="500"
+            class="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <figcaption class="mt-5 text-center">
+          <h3 class="mb-2 text-center text-lg font-medium text-text-heading">
+            Poolside Living
+          </h3>
+          <p class="text-center text-sm leading-relaxed text-text-muted">
+            Designed for sunny afternoons and relaxed conversations.
+          </p>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { revealStagger } from '../motion/section.js';
+  revealStagger('[aria-label="Outdoor living inspiration"]', {
+    children: 'h2, p, figure',
+  });
+</script>

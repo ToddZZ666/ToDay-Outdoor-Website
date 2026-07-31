@@ -1,0 +1,79 @@
+---
+import StoryStack from '../components/react/StoryStack';
+
+export interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<section
+  class={`bg-white ${className}`}
+  aria-label="Brand story"
+>
+  <div class="mx-auto max-w-7xl px-4 py-[8.5rem]">
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <!-- Text Content -->
+      <div class="story-content space-y-6">
+        <p class="story-eyebrow caption-label text-brand">
+          Our Story
+        </p>
+        <h2 class="text-left text-3xl font-medium leading-tight text-text-heading sm:text-4xl lg:text-[4rem]">
+          Live in Today.
+        </h2>
+        <p class="story-body max-w-[520px] text-left text-base leading-relaxed text-text-body">
+          We believe outdoor spaces are more than places to sit.
+        </p>
+        <p class="story-body max-w-[520px] text-left text-base leading-relaxed text-text-body">
+          They are where families gather, conversations begin, and everyday
+          moments become lasting memories.
+        </p>
+        <p class="story-body max-w-[520px] text-left text-base leading-relaxed text-text-body">
+          At ToDay, every collection is created with that belief in mind —
+          combining thoughtful design, lasting quality, and timeless outdoor
+          living.
+        </p>
+        <a
+          href="/about"
+          class="group inline-flex items-center gap-1.5 text-sm font-medium text-text-heading transition-all duration-300 hover:text-brand focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2"
+          aria-label="Discover our story"
+        >
+          <span class="relative">
+            Discover Our Story
+            <span class="absolute left-0 top-full h-0.5 w-0 bg-brand transition-all duration-300 group-hover:w-full"></span>
+          </span>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="transition-transform duration-300 group-hover:translate-x-1"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Image Stack -->
+      <div class="story-stack flex justify-center">
+        <div class="relative w-full max-w-[440px] aspect-square">
+          <StoryStack client:load />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { revealStagger } from '../motion/section.js';
+  revealStagger('[aria-label="Brand story"]', {
+    children: 'h2, p, a, .story-stack',
+  });
+</script>
+

@@ -1,0 +1,54 @@
+---
+// DesignPhilosophy — 4 large image panels with text overlays
+import './about.css';
+
+export interface Props {
+  items: { title: string; description: string; image: string }[];
+}
+
+const {
+  items = [
+    {
+      title: 'Timeless Design',
+      description: 'Clean lines and enduring silhouettes that transcend seasons.',
+      image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=85&auto=format&fit=crop',
+    },
+    {
+      title: 'Premium Materials',
+      description: 'Teak, aluminum, and rope selected for their beauty and resilience.',
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85&auto=format&fit=crop',
+    },
+    {
+      title: 'Inspired by Nature',
+      description: 'Organic forms and earthy palettes drawn from the natural world.',
+      image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=85&auto=format&fit=crop',
+    },
+    {
+      title: 'Better Together',
+      description: 'Furniture designed to bring people closer to each other and the outdoors.',
+      image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=85&auto=format&fit=crop',
+    },
+  ]
+} = Astro.props;
+---
+
+<section class="about-philosophy" aria-label="Design philosophy">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <span class="about-philosophy-heading">Design Philosophy</span>
+    <h2 class="about-philosophy-title">What guides every piece we make.</h2>
+
+    <div class="about-philosophy-grid">
+      {items.map((item, i) => (
+        <article class="about-philosophy-card">
+          <img src={item.image} alt={item.title} width="800" height="600" loading="lazy" />
+          <div class="about-philosophy-card-overlay"></div>
+          <div class="about-philosophy-card-content">
+            <div class="about-philosophy-card-number">{String(i + 1).padStart(2, '0')}</div>
+            <h3 class="about-philosophy-card-title">{item.title}</h3>
+            <p class="about-philosophy-card-desc">{item.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

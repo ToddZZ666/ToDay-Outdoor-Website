@@ -1,0 +1,155 @@
+---
+// Product Info Sidebar — options, price, CTA
+import '../sections/productDetail.css';
+import Button from '../components/common/Button.astro';
+
+export interface Props {
+  category: string;
+  name: string;
+  description: string;
+  price: number;
+  priceFrom: boolean;
+  fabricColors: { name: string; hex: string }[];
+  frameFinishes: { name: string; hex: string }[];
+  configurations: string[];
+  features: { icon: string; title: string; description: string }[];
+}
+
+const { category, name, description, price, priceFrom, fabricColors, frameFinishes, configurations } = Astro.props;
+
+function formatPrice(p: number): string {
+  return '$' + p.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+---
+
+<div class="detail-info">
+  <!-- Category Eyebrow -->
+  <span class="detail-category">{category}</span>
+
+  <!-- Title -->
+  <h1 class="detail-title">{name}</h1>
+
+  <!-- Description -->
+  <p class="detail-description">{description}</p>
+
+  <!-- Price -->
+  <div class="detail-price">
+    {priceFrom ? 'From ' : ''}{formatPrice(price)}
+  </div>
+
+  <!-- Fabric Color -->
+  <div class="detail-option">
+    <div class="detail-option-label">
+      <span>Fabric Color</span>
+      <span class="detail-option-label-value">{fabricColors[0]?.name || ''}</span>
+    </div>
+    <div class="detail-swatches" data-option="fabric">
+      {fabricColors.map((c, i) => (
+        <button
+          class={`detail-swatch ${i === 0 ? 'active' : ''}`}
+          style={`background-color: ${c.hex};`}
+          data-color-name={c.name}
+          aria-label={`${c.name} fabric`}
+        />
+      ))}
+    </div>
+  </div>
+
+  <!-- Frame Finish -->
+  <div class="detail-option">
+    <div class="detail-option-label">
+      <span>Frame Finish</span>
+      <span class="detail-option-label-value">{frameFinishes[0]?.name || ''}</span>
+    </div>
+    <div class="detail-swatches" data-option="frame">
+      {frameFinishes.map((c, i) => (
+        <button
+          class={`detail-swatch ${i === 0 ? 'active' : ''}`}
+          style={`background-color: ${c.hex};`}
+          data-color-name={c.name}
+          aria-label={`${c.name} frame`}
+        />
+      ))}
+    </div>
+  </div>
+
+  <!-- Configuration -->
+  <div class="detail-option">
+    <div class="detail-option-label">
+      <span>Configuration</span>
+    </div>
+    <select class="detail-config-select" aria-label="Configuration">
+      {configurations.map((c) => (
+        <option value={c}>{c}</option>
+      ))}
+    </select>
+  </div>
+
+  <!-- Quantity + CTA -->
+  <div class="detail-cta-row">
+    <div class="detail-qty">
+      <button class="detail-qty-btn" data-qty-action="decrease" aria-label="Decrease quantity">−</button>
+      <span class="detail-qty-value" data-qty-value>1</span>
+      <button class="detail-qty-btn" data-qty-action="increase" aria-label="Increase quantity">+</button>
+    </div>
+    <Button variant="primary" size="md" class="detail-cta-btn">
+      Request a Quote
+    </Button>
+  </div>
+
+  <!-- Info Actions -->
+  <div class="detail-info-actions">
+    <button class="detail-info-action">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+      </svg>
+      Download Catalog
+    </button>
+    <button class="detail-info-action">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+        <path d="M12 6v6l4 2" />
+      </svg>
+      Care Guide
+    </button>
+    <button class="detail-info-action">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
+        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+      </svg>
+      Share
+    </button>
+  </div>
+</div>
+
+<!-- Swatch selection + quantity JS -->
+<script>
+  (function () {
+    // Swatch click — toggle active within group
+    document.querySelectorAll('.detail-swatches').forEach((group) => {
+      group.querySelectorAll('.detail-swatch').forEach((swatch) => {
+        swatch.addEventListener('click', () => {
+          group.querySelectorAll('.detail-swatch').forEach((s) => s.classList.remove('active'));
+          swatch.classList.add('active');
+          // Update label value
+          const labelVal = group.closest('.detail-option')?.querySelector('.detail-option-label-value');
+          const colorName = swatch.getAttribute('data-color-name');
+          if (labelVal && colorName) {
+            labelVal.textContent = colorName;
+          }
+        });
+      });
+    });
+
+    // Quantity
+    const qtyEl = document.querySelector('[data-qty-value]');
+    const incBtn = document.querySelector('[data-qty-action="increase"]');
+    const decBtn = document.querySelector('[data-qty-action="decrease"]');
+    if (qtyEl && incBtn && decBtn) {
+      let qty = 1;
+      incBtn.addEventListener('click', () => { qty++; qtyEl.textContent = String(qty); });
+      decBtn.addEventListener('click', () => { if (qty > 1) { qty--; qtyEl.textContent = String(qty); } });
+    }
+  })();
+</script>
+

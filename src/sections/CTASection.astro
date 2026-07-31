@@ -1,0 +1,75 @@
+---
+
+export interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<section
+  class={`bg-white px-4 py-[11.25rem] ${className}`}
+  aria-label="Call to action"
+>
+  <div class="mx-auto max-w-[720px] text-center">
+    <!-- Heading -->
+    <h2 class="mb-6 text-center text-[2rem] font-medium leading-tight text-text-heading sm:text-[2.5rem] lg:text-[3.5rem] opacity-0">
+      Ready to Create Your Outdoor Moment?
+    </h2>
+
+    <!-- Subtitle -->
+    <p
+      class="mx-auto mb-14 max-w-[560px] text-center text-lg leading-relaxed text-text-body opacity-0"
+    >
+      Every memorable outdoor space begins with thoughtful design. Explore our
+      collections or start a conversation today.
+    </p>
+
+    <!-- Buttons -->
+    <div class="flex flex-col items-center justify-center gap-4 sm:flex-row sm:justify-center">
+      <a
+        href="/collection"
+        class="cta-primary opacity-0 inline-flex w-full items-center justify-center rounded-[11px] bg-brand px-8 py-3.5 text-base font-medium text-white transition-colors duration-300 hover:-translate-y-[2px] hover:bg-brand-hover hover:shadow-md focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 sm:w-auto"
+      >
+        Explore Collection
+      </a>
+      <a
+        href="/contact"
+        class="cta-secondary opacity-0 inline-flex w-full items-center justify-center rounded-[11px] border border-border-strong bg-surface px-8 py-3.5 text-base font-medium text-text-heading transition-colors duration-300 hover:-translate-y-[2px] hover:border-brand hover:bg-surface-soft focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 sm:w-auto"
+      >
+        Contact Us
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const section = document.querySelector('[aria-label="Call to action"]');
+  if (section) {
+    const reduced = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduced) {
+      const heading = section.querySelector('h2');
+      const subtitle = section.querySelector('p');
+      const buttons = section.querySelectorAll('.cta-primary, .cta-secondary');
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              observer.disconnect();
+              const tl = gsap.timeline();
+              tl.fromTo(heading, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+                .fromTo(subtitle, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.45')
+                .fromTo(buttons, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.08 }, '-=0.45');
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      );
+
+      observer.observe(section);
+    }
+  }
+</script>

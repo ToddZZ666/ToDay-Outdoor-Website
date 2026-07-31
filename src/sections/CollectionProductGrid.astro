@@ -1,0 +1,101 @@
+---
+// Product Grid with Toolbar — 3 columns, no borders, minimal.
+// Renders ProductCard records from the canonical registry
+// (src/data/products/index.ts), so every card links to its
+// corresponding data-driven Product Detail page.
+import '../sections/collection.css';
+import type { ProductCard } from '../models/product';
+
+export interface Props {
+  products: ProductCard[];
+  totalCount: number;
+  sortBy: string;
+}
+
+const { products, totalCount, sortBy } = Astro.props;
+
+function formatPrice(price: number): string {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0,
+  }).format(price);
+}
+---
+
+<!-- Toolbar -->
+<div class="collection-toolbar">
+  <p class="collection-toolbar-count">
+    <strong id="product-count">{totalCount}</strong> Products
+  </p>
+  <div class="flex items-center gap-4">
+    <button 
+      id="mobile-filter-toggle" 
+      class="lg:hidden flex items-center gap-2 text-[12.5px] font-medium tracking-[0.04em] text-text-body transition-colors hover:text-text-heading"
+      aria-expanded="false"
+      aria-controls="filter-sidebar-wrapper"
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+      </svg>
+      Filter
+    </button>
+    <select
+      class="collection-sort-select"
+      name="sort"
+      id="sort-select"
+      aria-label="Sort products"
+    >
+      <option value="featured" selected={sortBy === 'featured'}>Featured</option>
+      <option value="newest" selected={sortBy === 'newest'}>Newest</option>
+      <option value="price-asc" selected={sortBy === 'price-asc'}>Price: Low to High</option>
+      <option value="price-desc" selected={sortBy === 'price-desc'}>Price: High to Low</option>
+    </select>
+  </div>
+</div>
+
+<!-- Product Grid -->
+<div class="collection-product-list" id="product-list">
+  {products.map((product, index) => (
+    <a
+      href={`/products/${product.slug}`}
+      class="collection-product-card"
+      data-category={product.category}
+      data-price={product.price}
+      data-colors={product.colors.map(c => c.name.toLowerCase().replace(/\s+/g, '-')).join(',')}
+      data-featured-order={index}
+      data-tilt
+      data-tilt-layered
+      aria-label={`View ${product.name}`}
+    >
+      <div class="tilt-card-inner">
+        <div class="tilt-layer-image collection-product-image-wrap">
+          <img
+            src={product.image}
+            alt={product.name}
+            width="600"
+            height="450"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="tilt-layer-title">
+          <p class="collection-product-category">{product.categoryName}</p>
+          <h3 class="collection-product-name">{product.name}</h3>
+        </div>
+        <div class="tilt-layer-cta">
+          <p class="collection-product-price">{formatPrice(product.price)}</p>
+          <div class="collection-product-colors" aria-hidden="true">
+            {product.colors.map((color) => (
+              <span
+                class="collection-product-swatch"
+                style={{ background: color.hex }}
+                title={color.name}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </a>
+  ))}
+</div>

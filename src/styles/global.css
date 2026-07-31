@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap");
+@import "tailwindcss";
+
+/* Homepage motion language — shared reveal primitives. */
+@import "../motion/reveal.css";
+
+/* Design Tokens Foundation */
+@import "./tokens/colors.css";
+@import "./tokens/spacing.css";
+@import "./tokens/radius.css";
+@import "./tokens/shadows.css";
+
+@theme {
+  /* Fonts */
+  --font-display: "Cormorant Garamond", "Cormorant Garamond Fallback", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Base type foundation */
+html {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-body);
+}
+
+/* Premium typography defaults for headings — serif, editorial */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--color-text-heading);
+  letter-spacing: -0.01em;
+}
+
+/* Heading line-height defaults */
+h1 { line-height: 1.05; letter-spacing: -0.015em; }
+h2 { line-height: 1.1; }
+h3 { line-height: 1.25; }
+
+/* Editorial weight overrides — most ToDay headings use light/regular, not bold */
+.font-display-light {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+.font-display-medium {
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+/* Body text baseline — 17px, generous editorial line-height */
+/* Scoped to p/li descendants only — never matches heading wrappers from GSAP SplitText */
+p > *,
+li > *,
+p,
+li {
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+/* Caption / eyebrow labels — uppercase, tracked */
+.caption-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* Focus visible accessibility ring — quiet terracotta indicator */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

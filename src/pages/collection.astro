@@ -1,0 +1,158 @@
+---
+// Collection — renders from the canonical product registry
+// (src/data/products/index.ts). The same source the Product Detail pages
+// consume, so every card links to a real, data-driven detail page.
+import MainLayout from '../layouts/MainLayout.astro';
+import CollectionEditorialHeader from '../sections/CollectionEditorialHeader.astro';
+import CollectionCategoryNav from '../sections/CollectionCategoryNav.astro';
+import CollectionFilterSidebar from '../sections/CollectionFilterSidebar.astro';
+import CollectionProductGrid from '../sections/CollectionProductGrid.astro';
+import CollectionCustomBanner from '../sections/CollectionCustomBanner.astro';
+import { getProductsAsCards, getCategories } from '../models/product';
+const productCards = getProductsAsCards();
+
+// Live counts per category, derived from the registry.
+const categoryCounts = getCategories();
+
+// CollectionCategoryNav expects { label, value, icon }; counts come above.
+const categories: { label: string; value: string; icon: string }[] = [
+  { label: 'All', value: 'all', icon: 'all' },
+  { label: 'Outdoor Sofa', value: 'sofa', icon: 'sofa' },
+  { label: 'Dining Set', value: 'dining', icon: 'dining' },
+  { label: 'Lounge Chair', value: 'lounge', icon: 'lounge' },
+  { label: 'Fire Pit Table', value: 'firepit', icon: 'firepit' },
+  { label: 'Accessories', value: 'accessories', icon: 'accessories' },
+];
+
+// Build a category-counts map for the category nav "All" badge.
+const productCounts: Record<string, number> = {};
+categoryCounts.forEach((c) => { productCounts[c.value] = c.count; });
+
+// Filter group options derived from registry data. Category uses live
+// counts from the registry; color and price are simplified placeholder
+// groups (refine when product color/price data is exposed).
+const filterGroups = [
+  {
+    title: 'Category',
+    key: 'category',
+    type: 'radio' as const,
+    openByDefault: false,
+    options: categories.map((c) => ({
+      label: c.label,
+      value: c.value,
+      count: categoryCounts.find((cat) => cat.value === c.value)?.count ?? 0,
+    })),
+  },
+  {
+    title: 'Color',
+    key: 'color',
+    type: 'checkbox' as const,
+    openByDefault: false,
+    options: [
+      { label: 'Natural', value: 'natural', count: 0 },
+      { label: 'Charcoal', value: 'charcoal', count: 0 },
+      { label: 'Sage Green', value: 'sage', count: 0 },
+      { label: 'Cream', value: 'cream', count: 0 },
+    ],
+  },
+  {
+    title: 'Price',
+    key: 'price',
+    type: 'checkbox' as const,
+    openByDefault: false,
+    options: [
+      { label: 'Under $1,000', value: 'under-1000', count: 0 },
+      { label: '$1,000 — $2,000', value: '1k-2k', count: 0 },
+      { label: '$2,000 — $4,000', value: '2k-4k', count: 0 },
+      { label: '$4,000+', value: 'over-4k', count: 0 },
+    ],
+  },
+];
+
+const totalCount = productCards.length;
+const activeCategory = 'all'; // Client-side JS updates active state from URL
+---
+
+<MainLayout
+  title="Collection — Outdoor Living"
+  description="Browse the ToDay outdoor living collection. Timeless designs crafted for beautiful moments outdoors."
+>
+  <div class="collection-page">
+    <!-- Editorial Header -->
+    <CollectionEditorialHeader />
+
+    <!-- Category Navigation -->
+    <CollectionCategoryNav
+      categories={categories}
+      activeCategory={activeCategory}
+      productCounts={productCounts}
+    />
+
+    <!-- Product Section -->
+    <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section class="collection-product-section" aria-label="Product listing">
+        <div class="collection-product-grid">
+          <!-- Filter Sidebar (hidden on mobile by default) -->
+          <div id="filter-sidebar-wrapper" class="collection-sidebar-wrapper hidden lg:block mb-8 lg:mb-0">
+            <CollectionFilterSidebar groups={filterGroups} />
+          </div>
+
+          <!-- Product Grid -->
+          <div class="collection-products-content">
+            <CollectionProductGrid
+              products={productCards}
+              totalCount={totalCount}
+              sortBy="featured"
+            />
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Custom Solution Banner -->
+    <CollectionCustomBanner />
+  </div>
+
+  <!-- Client-side filtering: filter products by category query param -->
+  <script>
+    import { revealProductGrid, switchCategory } from '../motion/collection.js';
+    import { initTiltCards } from '../motion/tiltCard.js';
+
+    // Row-by-row product reveal on viewport entry.
+    revealProductGrid('.collection-product-list');
+
+    // 3D tilt on the featured Coastal card (first product).
+    initTiltCards('.collection-product-card[data-tilt]');
+
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const category = params.get('category') || 'all';
+
+      // Update active state on category nav
+      document.querySelectorAll('.collection-cat-item').forEach((el) => {
+        const href = el.getAttribute('href') || '';
+        const isActive = href.includes('category=' + category);
+        el.classList.toggle('active', isActive);
+      });
+
+      // Filter product cards by category with a light fade-out/in transition
+      // (existing products fade out, new products fade in; no page reset).
+      switchCategory(category);
+
+      // Animate subsequent category clicks in-place (client-side only, no
+      // full reload on single-tab navigation via link clicks).
+      document.querySelectorAll('.collection-cat-item').forEach((link) => {
+        link.addEventListener('click', function (e) {
+          const href = link.getAttribute('href') || '';
+          const m = href.match(/category=([^&]+)/);
+          const target = m ? m[1] : 'all';
+          // Update active indicator on the nav.
+          document.querySelectorAll('.collection-cat-item').forEach((l) => {
+            l.classList.toggle('active', l === link);
+          });
+          switchCategory(target);
+        });
+      });
+    })();
+  </script>
+</MainLayout>

@@ -1,0 +1,1 @@
+globalThis.process??={},globalThis.process.env??={};import{t as e}from"./collection.BdN68At0.js";e(`.collection-cat-nav`);

@@ -1,0 +1,49 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import HeroSection from '../sections/HeroSection.astro';
+import BrandHighlights from '../sections/BrandHighlights.astro';
+import BrandStory from '../sections/BrandStory.astro';
+import CTASection from '../sections/CTASection.astro';
+import InspirationSection from '../sections/InspirationSection.astro';
+import FeaturedCollection from '../sections/FeaturedCollection.astro';
+---
+
+<MainLayout title="Home — Premium Outdoor Living" description="Premium Outdoor Living Brand.">
+  <HeroSection />
+  <InspirationSection />
+  <FeaturedCollection />
+  <BrandHighlights />
+  <BrandStory />
+  <CTASection />
+
+  <!-- Home curtain — visible only when arriving from the Experience transition.
+       Solid black fills the viewport until the hero image loads, then fades out. -->
+  <div id="home-curtain"></div>
+
+  <script is:inline>
+    (function () {
+      var cookieName = 'today-experience-exiting';
+      var curtain = document.getElementById('home-curtain');
+      if (!curtain) return;
+      if (!document.cookie.includes(cookieName + '=1')) return;
+
+      // Show the curtain during the page-change flash
+      curtain.style.cssText = 'position:fixed;inset:0;z-index:9999;background:#000;opacity:1;transition:opacity 700ms ease-in;pointer-events:none;';
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+
+      function dismiss() {
+        curtain.style.opacity = '0';
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        document.cookie = cookieName + '=;path=/;max-age=0';
+      }
+
+      if (document.readyState === 'complete') {
+        setTimeout(dismiss, 80);
+      } else {
+        window.addEventListener('load', () => setTimeout(dismiss, 80));
+      }
+    })();
+  </script>
+</MainLayout>

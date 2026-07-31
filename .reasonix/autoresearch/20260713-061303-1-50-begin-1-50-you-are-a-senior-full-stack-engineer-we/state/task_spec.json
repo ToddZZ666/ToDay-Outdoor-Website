@@ -1,0 +1,25 @@
+{
+  "task_id": "20260713-061303-1-50-begin-1-50-you-are-a-senior-full-stack-engineer-we",
+  "goal": "[已粘贴文本 #1 · 50 行]\n\n--- Begin [已粘贴文本 #1 · 50 行] ---\nYou are a senior full-stack engineer.\r\n\r\nWe are building a long-term international brand website.\r\n\r\nProject goals:\r\n\r\n- Professional B2B foreign trade website\r\n- SEO optimized\r\n- Fast loading\r\n- Mobile-first\r\n- Modern UI\r\n- Easy to maintain\r\n- Future Shopify integration\r\n- Deploy to Cloudflare\r\n- GitHub repository already exists\r\n\r\nTechnology requirements:\r\n\r\n- Astro\r\n- TypeScript\r\n- Tailwind CSS\r\n- ESLint\r\n- Prettier\r\n- Git\r\n- Responsive Design\r\n- Component-based architecture\r\n\r\nPlease complete everything automatically.\r\n\r\nTasks:\r\n\r\n1. Initialize an Astro project.\r\n2. Install all required dependencies.\r\n3. Configure Tailwind CSS.\r\n4. Configure TypeScript.\r\n5. Configure ESLint.\r\n6. Configure Prettier.\r\n7. Create a clean folder architecture.\r\n8. Create reusable UI components.\r\n9. Configure SEO defaults.\r\n10. Configure Git.\r\n11. Create README.md.\r\n12. Create CLAUDE.md for future AI development.\r\n13. Create PROJECT.md describing the project.\r\n14. Configure the project for Cloudflare deployment.\r\n15. Do not generate business pages yet.\r\n16. Keep the project clean and scalable.\r\n\r\nAfter everything is finished,\r\nexplain every folder and every important configuration.\n--- End [已粘贴文本 #1 · 50 行] ---",
+  "scope": null,
+  "non_goals": null,
+  "allowed_operations": {
+    "write": true,
+    "network": false,
+    "publish": false
+  },
+  "success_criteria": [
+    {
+      "id": "objective_evidence",
+      "description": "The goal outcome is supported by direct evidence, such as inspected code, reproduced behavior, source material, or concrete findings.",
+      "required": true,
+      "evidence_ids": null
+    },
+    {
+      "id": "verification",
+      "description": "The result has relevant verification evidence, such as tests, commands, benchmarks, manual checks, or a documented reason why verification is not applicable.",
+      "required": true,
+      "evidence_ids": null
+    }
+  ]
+}

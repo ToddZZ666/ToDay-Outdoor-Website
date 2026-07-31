@@ -1,0 +1,27 @@
+---
+// AboutCTA — closing brand statement with contact button
+import './about.css';
+
+export interface Props {
+  backgroundImage?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  backgroundImage = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85&auto=format&fit=crop',
+  title = 'Every Outdoor Moment\nBegins Today.',
+  subtitle = 'Create your outdoor space',
+} = Astro.props;
+---
+
+<section class="about-closing" aria-label="Closing brand statement">
+  <img src={backgroundImage} alt="" width="1920" height="1080" />
+  <div class="about-closing-overlay"></div>
+
+  <div class="about-closing-content">
+    <h2 class="about-closing-title" style="white-space: pre-line">{title}</h2>
+    <p class="about-closing-sub">{subtitle}</p>
+    <a href="/contact" class="about-closing-btn">Contact Us</a>
+  </div>
+</section>

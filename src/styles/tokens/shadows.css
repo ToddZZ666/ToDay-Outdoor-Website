@@ -1,0 +1,16 @@
+/**
+ * Elevation & Shadow Tokens — ToDay Design System
+ * 
+ * Centralized shadow elevations for product cards, hover lift, main image galleries,
+ * and floating controls.
+ */
+
+@theme {
+  --shadow-card-sm: 0 4px 16px -10px rgba(34, 34, 34, 0.10);     /* Subtle resting elevation */
+  --shadow-card: 0 4px 20px -8px rgba(34, 34, 34, 0.10);         /* Standard card shadow */
+  --shadow-card-hover: 0 12px 28px -14px rgba(34, 34, 34, 0.18);  /* Card hover lift shadow */
+  --shadow-gallery: 0 18px 60px rgba(0, 0, 0, 0.08);              /* Main product gallery shadow */
+  --shadow-gallery-hover: 0 24px 80px rgba(0, 0, 0, 0.10);        /* Main product gallery hover shadow */
+  --shadow-thumb-arrow: 0 2px 8px rgba(0, 0, 0, 0.06);            /* Carousel arrow control shadow */
+  --shadow-tilt-layer: 0 30px 50px -20px rgba(34, 34, 34, 0.40);   /* Deep 3D tilt projected shadow */
+}

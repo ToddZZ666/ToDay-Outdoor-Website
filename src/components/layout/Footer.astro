@@ -1,0 +1,95 @@
+---
+import Container from '../common/Container.astro';
+import Logo from '../common/Logo.astro';
+---
+
+<footer class="border-t border-footer-border bg-footer-bg">
+  <Container>
+    <div class="grid grid-cols-1 gap-8 py-12 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- Company -->
+      <div>
+        <Logo />
+        <p class="mt-3 text-sm leading-relaxed text-footer-body">
+          Premium outdoor living brand — crafting quality furniture for modern
+          outdoor spaces.
+        </p>
+      </div>
+
+      <!-- Products -->
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-footer-heading">
+          Products
+        </h3>
+        <ul class="mt-4 space-y-3">
+          <li>
+            <a href="/collection" class="text-sm text-footer-link transition-colors hover:text-brand">
+              Outdoor Sofa
+            </a>
+          </li>
+          <li>
+            <a href="/collection" class="text-sm text-footer-link transition-colors hover:text-brand">
+              Dining Set
+            </a>
+          </li>
+          <li>
+            <a href="/collection" class="text-sm text-footer-link transition-colors hover:text-brand">
+              Fire Pit Table
+            </a>
+          </li>
+          <li>
+            <a href="/collection" class="text-sm text-footer-link transition-colors hover:text-brand">
+              Lounge Chair
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-footer-heading">
+          Contact
+        </h3>
+        <ul class="mt-4 space-y-3">
+          <li>
+            <a href="/contact" class="text-sm text-footer-link transition-colors hover:text-brand">
+              Enquiry Form
+            </a>
+          </li>
+          <li>
+            <a href="/contact" class="text-sm text-footer-link transition-colors hover:text-brand">
+              Request a Quote
+            </a>
+          </li>
+          <li>
+            <span class="text-sm text-footer-body">
+              +1 (555) 000-0000
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Email / Newsletter -->
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-footer-heading">
+          Stay Connected
+        </h3>
+        <p class="mt-4 text-sm leading-relaxed text-footer-body">
+          Subscribe to receive product updates and catalogue releases.
+        </p>
+        <a
+          href="/contact"
+          class="mt-4 inline-block text-sm font-medium text-brand transition-colors hover:text-brand-hover"
+        >
+          Contact Us →
+        </a>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="border-t border-footer-border py-6">
+      <p class="text-center text-xs text-footer-muted">
+        &copy; {new Date().getFullYear()} ToDay. All rights reserved.
+      </p>
+    </div>
+  </Container>
+</footer>

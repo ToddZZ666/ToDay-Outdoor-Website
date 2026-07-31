@@ -1,0 +1,187 @@
+---
+import HeroZoom from '../components/react/HeroZoom';
+
+export interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+const heroImageSrc = '/images/hero/Gemini_Generated_Image_ttxeixttxeixttxe.png';
+const imageSrc = heroImageSrc;
+---
+
+<section
+  class={`relative flex h-screen overflow-hidden bg-background ${className}`}
+  aria-labelledby="hero-heading"
+>
+  <!-- Background Image -->
+  <img
+    src={imageSrc}
+    alt=""
+    role="presentation"
+    class="hero-image absolute inset-0 h-full w-full object-cover"
+    style="object-position: center 50%"
+    loading="eager"
+    decoding="async"
+  />
+
+  <!-- Cinematic hero background zoom -->
+  <HeroZoom client:load />
+
+  <!-- Left-to-right gradient scrim — lightens the sky area for text contrast -->
+  <div
+    class="hero-scrim loaded absolute inset-0 pointer-events-none"
+    aria-hidden="true"
+  />
+
+  <!-- Hero Content — left-aligned on desktop, centered on mobile -->
+  <div class="hero-content relative z-10">
+    <h1 class="hero-title-block" id="hero-heading">
+      <span class="hero-line hero-line-primary opacity-0">Designed</span>
+      <span class="hero-line hero-line-connector opacity-0">for</span>
+      <span class="hero-line hero-line-primary opacity-0">Better</span>
+      <span class="hero-line hero-line-supporting opacity-0">Outdoor Living</span>
+    </h1>
+
+    <div class="hero-cta-row">
+      <a
+        class="hero-cta opacity-0 inline-flex w-full items-center justify-center rounded-[11px] bg-[#C67A52] px-8 py-3.5 text-base font-medium text-white transition-colors duration-300 hover:-translate-y-[2px] hover:bg-[#B36842] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#C67A52] sm:w-auto"
+        href="/collection"
+      >
+        Explore Collection
+      </a>
+      <a
+        class="hero-cta opacity-0 inline-flex w-full items-center justify-center rounded-[11px] border border-text-heading/30 bg-transparent px-8 py-3.5 text-base font-medium text-text-heading transition-colors duration-300 hover:-translate-y-[2px] hover:border-[#C67A52] hover:text-[#C67A52] focus:outline-none focus:ring-2 focus:ring-text-heading sm:w-auto"
+        href="/contact"
+      >
+        Contact Us
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+
+  const lines = document.querySelectorAll('.hero-line');
+  const buttons = document.querySelectorAll('.hero-cta');
+
+  if (lines.length > 0 || buttons.length > 0) {
+    const reduced = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduced) {
+      const tl = gsap.timeline();
+      tl.fromTo(
+        lines,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.08 }
+      ).fromTo(
+        buttons,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.08 },
+        "-=0.4"
+      );
+    }
+  }
+</script>
+
+<style is:global>
+  /* ── Editorial title block: line-by-line hierarchy ── */
+  .hero-title-block {
+    font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-text-heading);
+    margin: 0;
+  }
+
+  /* "Designed" and "Better" — the focal words */
+  .hero-line-primary {
+    display: block;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 1;
+    font-weight: 500;
+  }
+
+  /* "for" — quiet connector, smaller, lighter */
+  .hero-line-connector {
+    display: block;
+    font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+    line-height: 1.2;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--color-text-muted);
+    margin: 0.1em 0;
+  }
+
+  /* "Outdoor Living" — supporting line, medium weight */
+  .hero-line-supporting {
+    display: block;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1.05;
+    font-weight: 400;
+    margin-top: 0.1em;
+  }
+
+  /* ── CTA row ── */
+  .hero-cta-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 14px;
+    margin-top: 2em;
+  }
+
+  @media (min-width: 640px) {
+    .hero-cta-row {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  /* ── Hero Image ── */
+  .hero-image {
+    opacity: 1;
+  }
+
+  /* ── Gradient scrim: soft warm-white overlay for text readability ── */
+  .hero-scrim {
+    opacity: 1;
+    background: linear-gradient(
+      90deg,
+      rgba(250,248,245,0.72) 0%,
+      rgba(250,248,245,0.56) 25%,
+      rgba(250,248,245,0.25) 48%,
+      rgba(250,248,245,0.00) 68%
+    );
+  }
+
+  /* ── Hero content layout — editorial, left-aligned, vertically centered ── */
+  .hero-content {
+    position: absolute;
+    left: 6%;
+    right: 8%;
+    top: 25%;
+    transform: translateY(-50%);
+    max-width: 680px;
+    margin: 0;
+    text-align: left;
+    z-index: 10;
+  }
+
+  /* Mobile: stack vertically, centered above image */
+  @media (max-width: 767px) {
+    .hero-content {
+      position: relative;
+      left: auto;
+      right: auto;
+      top: auto;
+      transform: none;
+      max-width: none;
+      margin: 0 auto;
+      padding: 100px 24px 60px;
+      text-align: center;
+    }
+  }
+</style>

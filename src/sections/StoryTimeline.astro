@@ -1,0 +1,38 @@
+---
+// StoryTimeline — horizontal scroll narrative
+import './about.css';
+
+export interface Props {
+  items: { year: string; title: string; description: string; image: string }[];
+}
+
+const {
+  items = [
+    { year: '2020', title: 'The Beginning', description: 'ToDay was founded with a single belief: outdoor living should feel as intentional as indoor design.', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80&auto=format&fit=crop' },
+    { year: '2021', title: 'First Collection', description: 'Our debut collection of teak and rope furniture set the foundation for a new approach to outdoor spaces.', image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&q=80&auto=format&fit=crop' },
+    { year: '2022', title: 'Growing Together', description: 'Expanding our product family with new materials, new designs, and a growing community of partners.', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80&auto=format&fit=crop' },
+    { year: 'Today', title: 'And Beyond', description: 'Continuing to craft furniture that brings people together, one outdoor moment at a time.', image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80&auto=format&fit=crop' },
+  ]
+} = Astro.props;
+---
+
+<section class="about-timeline" aria-label="Our story timeline">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <h2 class="about-timeline-heading">Our Journey</h2>
+
+    <div class="about-timeline-scroll">
+      {items.map((item) => (
+        <article class="about-timeline-item">
+          <div>
+            <div class="about-timeline-year">{item.year}</div>
+            <h3 class="about-timeline-title">{item.title}</h3>
+            <p class="about-timeline-desc">{item.description}</p>
+          </div>
+          <div class="about-timeline-image">
+            <img src={item.image} alt={item.title} width="600" height="450" loading="lazy" />
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

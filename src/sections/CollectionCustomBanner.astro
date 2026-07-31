@@ -1,0 +1,114 @@
+---
+// Custom Solution Banner — lifestyle image + CTA, warm beige
+import '../sections/collection.css';
+import Button from '../components/common/Button.astro';
+---
+
+<section
+  class="collection-custom-banner"
+  aria-label="Custom solutions"
+>
+  <div class="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="collection-banner-grid">
+      <!-- Lifestyle Image -->
+      <div class="collection-banner-image">
+        <img
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80&auto=format&fit=crop"
+          alt="Bespoke outdoor living space"
+          width="800"
+          height="600"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <!-- CTA Text -->
+      <div class="collection-banner-content">
+        <span class="caption-label text-brand">
+          Bespoke
+        </span>
+        <h2 class="collection-banner-title">
+          Looking for<br />Something More Personal?
+        </h2>
+        <p class="collection-banner-desc">
+          We offer custom sizes, materials, and finishes
+          to fit your unique outdoor space.
+        </p>
+        <Button href="/contact" variant="outline" size="md">
+          Contact Us
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .collection-custom-banner {
+    background: #FAF8F5;
+    margin-top: 4px;
+  }
+
+  .collection-banner-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .collection-banner-grid {
+      grid-template-columns: 1.1fr 1fr;
+      gap: 64px;
+    }
+  }
+
+  .collection-banner-image {
+    position: relative;
+    width: 100%;
+    height: 360px;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  @media (max-width: 1023px) {
+    .collection-banner-image {
+      height: 280px;
+    }
+  }
+
+  .collection-banner-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .collection-banner-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .collection-banner-title {
+    font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    font-weight: 500;
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: #222222;
+    margin: 0;
+  }
+
+  .collection-banner-desc {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #5E5E5E;
+    max-width: 440px;
+    margin: 0;
+  }
+
+  .collection-banner-content .collection-banner-cta {
+    margin-top: 4px;
+  }
+</style>

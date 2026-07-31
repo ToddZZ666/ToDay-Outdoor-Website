@@ -1,0 +1,41 @@
+---
+// BrandManifesto — magazine-style brand statement
+import './about.css';
+
+export interface Props {
+  image?: string;
+}
+
+const { image = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85&auto=format&fit=crop' } = Astro.props;
+---
+
+<section class="about-manifesto" aria-label="Brand manifesto">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="about-manifesto-grid">
+      <!-- Left: heading -->
+      <h2 class="about-manifesto-heading">
+        Outdoor living<br />
+        is not about<br />
+        furniture.
+      </h2>
+
+      <!-- Right: manifesto lines + image -->
+      <div>
+        <div class="about-manifesto-text">
+          <p class="about-manifesto-line">It's about <strong>slowing down</strong>.</p>
+          <p class="about-manifesto-line">It's about <strong>sharing moments</strong>.</p>
+          <p class="about-manifesto-line">It's about <strong>feeling today</strong>.</p>
+        </div>
+        <div class="about-manifesto-image" style="margin-top: 40px;">
+          <img
+            src={image}
+            alt="Outdoor living lifestyle"
+            width="700"
+            height="875"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

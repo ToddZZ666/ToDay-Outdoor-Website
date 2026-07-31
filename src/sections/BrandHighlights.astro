@@ -1,0 +1,118 @@
+---
+
+export interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+const highlights = [
+  {
+    icon: 'timeless',
+    title: 'Timeless Design',
+    description:
+      'Designed to complement modern outdoor living for years to come.',
+  },
+  {
+    icon: 'built-to-last',
+    title: 'Built to Last',
+    description:
+      'Premium materials engineered to withstand every season with confidence.',
+  },
+  {
+    icon: 'sustainable',
+    title: 'Sustainable Thinking',
+    description:
+      'Responsible sourcing and lasting quality for a better tomorrow.',
+  },
+  {
+    icon: 'global',
+    title: 'Global Partnership',
+    description:
+      'Supporting retailers and commercial projects around the world.',
+  },
+];
+---
+
+<section
+  class="border-t border-border/40 bg-white px-4 py-[8.5rem] sm:px-6 lg:px-8"
+  aria-label="Brand highlights"
+>
+  <div class="mx-auto max-w-7xl">
+    <!-- Section Heading -->
+    <div class="mb-16 text-center">
+      <span
+        class="mb-4 block caption-label text-brand"
+      >
+        Why ToDay
+      </span>
+      <h2 class="text-center text-[4rem] font-medium text-text-heading sm:text-[3.25rem] lg:text-[4rem]">
+        Crafted for Every Outdoor Moment
+      </h2>
+    </div>
+
+    <!-- Highlights Grid -->
+    <div
+      class="grid grid-cols-1 gap-12 sm:gap-16 lg:grid-cols-4 lg:gap-8"
+    >
+      {highlights.map((item, idx) => (
+        <article
+          class="flex flex-col items-center text-center"
+        >
+          <!-- Icon -->
+          <div class="mb-6 text-text-icon" aria-hidden="true">
+            {
+              item.icon === 'timeless' && (
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9" />
+                  <polyline points="12,7 12,12 15,15" />
+                </svg>
+              )
+            }
+            {
+              item.icon === 'built-to-last' && (
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3c-1.5 1.5-4 3-7 3 0 5 2 10 7 12 5-2 7-7 7-12-3 0-5.5-1.5-7-3z" />
+                </svg>
+              )
+            }
+            {
+              item.icon === 'sustainable' && (
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+                  <path d="M7.5 9.5c1.5-1 3.5-1 4.5 0s1.5 2.5 0 4c-1.5 1.5-4 2-4 2s.5-2.5 2-4c1-1.5 1-3 0-4.5s-3-1.5-4.5 0" />
+                </svg>
+              )
+            }
+            {
+              item.icon === 'global' && (
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <ellipse cx="12" cy="12" rx="4" ry="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                </svg>
+              )
+            }
+          </div>
+
+          <!-- Title -->
+          <h3 class="mb-4 text-center text-lg font-medium text-text-heading">
+            {item.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="max-w-xs text-center text-sm leading-relaxed text-text-body">
+            {item.description}
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { revealStagger } from '../motion/section.js';
+  revealStagger('[aria-label="Brand highlights"]', {
+    children: 'h2, article',
+  });
+</script>
